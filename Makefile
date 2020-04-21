@@ -16,6 +16,7 @@ stop: ## Stop development containers
 debug: ## Stop, rebuild and start development containers
 	@echo "Stop, rebuild and start development environment"
 	@docker-compose -f docker-compose.yml down
+	@docker system prune -f	
 	@docker-compose build
 	@docker-compose -f docker-compose.yml up -d
 

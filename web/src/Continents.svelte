@@ -6,7 +6,7 @@
     let continents;
     let photos;
     onMount(async () => {
-        const res = await fetch(`http://localhost:3000/continents`);
+        const res = await fetch(`http://localhost:3000/api/continents`);
         continents = await res.json();
     });
 
