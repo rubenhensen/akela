@@ -1,12 +1,14 @@
 <script>
-	export let name;
+	import { onMount } from "svelte";
+	import Continent from "./Continent.svelte";
+	import Continents from "./Continents.svelte";
+	let continent;
 </script>
 
+<h1>The Seven Continents Svelte App</h1>
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<Continents />
 </main>
-
 <style>
 	main {
 		text-align: center;
