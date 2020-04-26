@@ -21,12 +21,14 @@ export default (app: Router) => {
     }),
     async (req: Request, res: Response, next: NextFunction) => {
       const logger = Container.get('logger');
+      // @ts-ignore
       logger.debug('Calling Sign-Up endpoint with body: %o', req.body )
       try {
         const authServiceInstance = Container.get(AuthService);
         const { user, token } = await authServiceInstance.SignUp(req.body as IUserInputDTO);
         return res.status(201).json({ user, token });
       } catch (e) {
+        // @ts-ignore
         logger.error('🔥 error: %o', e);
         return next(e);
       }
@@ -43,6 +45,7 @@ export default (app: Router) => {
     }),
     async (req: Request, res: Response, next: NextFunction) => {
       const logger = Container.get('logger');
+      // @ts-ignore
       logger.debug('Calling Sign-In endpoint with body: %o', req.body)
       try {
         const { email, password } = req.body;
@@ -54,6 +57,7 @@ export default (app: Router) => {
             .status(200)
             .json({ user, token });
       } catch (e) {
+        // @ts-ignore
         logger.error('🔥 error: %o',  e );
         return next(e);
       }
@@ -71,11 +75,13 @@ export default (app: Router) => {
    */
   route.post('/logout', middlewares.isAuth, (req: Request, res: Response, next: NextFunction) => {
     const logger = Container.get('logger');
+    // @ts-ignore
     logger.debug('Calling Sign-Out endpoint with body: %o', req.body)
     try {
       //@TODO AuthService.Logout(req.user) do some clever stuff
       return res.status(200).end();
     } catch (e) {
+      // @ts-ignore
       logger.error('🔥 error %o', e);
       return next(e);
     }
