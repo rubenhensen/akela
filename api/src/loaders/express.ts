@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import routes from '../api';
 import config from '../config';
@@ -31,6 +32,10 @@ export default ({ app }: { app: express.Application }) => {
 
   // Middleware that transforms the raw string of req.body into json
   app.use(bodyParser.json());
+
+  // Middleware that enables the cookies of req.cookie
+  app.use(cookieParser());
+
   // Load API routes
   app.use(config.api.prefix, routes());
 

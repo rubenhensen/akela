@@ -18,8 +18,11 @@ export default class MailerService {
       subject: 'Hello',
       text: 'Testing some Mailgun awesomness!'
     };
-
-    this.emailClient.messages().send(data);
+    this.emailClient.messages().send(data, function (error, body) {
+      console.log(body);
+      console.log(email);
+    });
+    // this.emailClient.messages().send(data);
     return { delivered: 1, status: 'ok' };
   }
   public StartEmailSequence(sequence: string, user: Partial<IUser>) {

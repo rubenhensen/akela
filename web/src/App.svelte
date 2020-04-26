@@ -2,13 +2,16 @@
 	import { onMount } from "svelte";
 	import Continent from "./Continent.svelte";
 	import Continents from "./Continents.svelte";
+	import Signup from "./Signup.svelte";
 	let continent;
 </script>
 
 <h1>The Seven Continents Svelte App</h1>
+
 <main>
-	<Continents />
+	<Signup />
 </main>
+
 <style>
 	main {
 		text-align: center;
