@@ -5,15 +5,17 @@
 	import Signup from "./Signup.svelte";
 	import Signin from "./Signin.svelte";
 	import Profile from "./Profile.svelte";
+	import UsersList from "./UsersList.svelte"
 	let continent;
 </script>
 
 <h1>Akela</h1>
 
 <main>
-	<Signup />
-	<Signin />
-	<Profile />
+	<UsersList/>
+<!--	<Signup />-->
+<!--	<Signin />-->
+<!--	<Profile />-->
 </main>
 
 <style>
