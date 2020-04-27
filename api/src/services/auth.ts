@@ -1,9 +1,9 @@
 import { Service, Inject } from 'typedi';
 import jwt from 'jsonwebtoken';
-import MailerService from './mailer';
-import config from '../config';
 import argon2 from 'argon2';
 import { randomBytes } from 'crypto';
+import MailerService from './mailer';
+import config from '../config';
 import { IUser, IUserInputDTO } from '../interfaces/IUser';
 import { EventDispatcher, EventDispatcherInterface } from '../decorators/eventDispatcher';
 import events from '../subscribers/events';
@@ -94,9 +94,8 @@ export default class AuthService {
        * Easy as pie, you don't need passport.js anymore :)
        */
       return { user, token };
-    } else {
-      throw new Error('Invalid Password');
     }
+    throw new Error('Invalid Password');
   }
 
   private generateToken(user) {

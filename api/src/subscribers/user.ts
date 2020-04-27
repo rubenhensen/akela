@@ -1,8 +1,8 @@
 import { Container } from 'typedi';
 import { EventSubscriber, On } from 'event-dispatch';
+import mongoose from 'mongoose';
 import events from './events';
 import { IUser } from '../interfaces/IUser';
-import mongoose from 'mongoose';
 
 @EventSubscriber()
 export default class UserSubscriber {
@@ -31,6 +31,7 @@ export default class UserSubscriber {
       throw e;
     }
   }
+
   @On(events.user.signUp)
   public onUserSignUp({ name, email, _id }: Partial<IUser>) {
     const Logger = Container.get('logger');

@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import routes from '../api';
 import config from '../config';
+
 export default ({ app }: { app: express.Application }) => {
   /**
    * Health Check endpoints
@@ -39,14 +40,14 @@ export default ({ app }: { app: express.Application }) => {
   // Load API routes
   app.use(config.api.prefix, routes());
 
-  /// catch 404 and forward to error handler
+  // / catch 404 and forward to error handler
   app.use((req, res, next) => {
     const err = new Error('Not Found');
-    err['status'] = 404;
+    err.status = 404;
     next(err);
   });
 
-  /// error handlers
+  // / error handlers
   app.use((err, req, res, next) => {
     /**
      * Handle 401 thrown by express-jwt library
