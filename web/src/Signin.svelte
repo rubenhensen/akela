@@ -1,5 +1,4 @@
 <script>
-    let name = '';
     let email = '';
     let password = '';
 
@@ -22,7 +21,7 @@
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
+            credentials: 'include', // include, *same-origin, omit
             headers: {
                 'Content-Type': 'application/json'
                 // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -34,9 +33,8 @@
         return response.json(); // parses JSON response into native JavaScript objects
     }
     function handleSubmit() {
-        url = 'http://localhost:3000/api/users/signup';
-        data = {
-            "name": name,
+        let url = 'http://localhost:3000/api/auth/signin';
+        let data = {
             "email": email,
             "password": password
         };
@@ -44,28 +42,15 @@
     }
 </script>
 
-<h2>Login</h2>
+<h2>Signin</h2>
 
 <form on:submit|preventDefault={handleSubmit}>
-    <input bind:value={name} placeholder="enter your name">
     <input bind:value={email} placeholder="enter your e-mail">
-    <input bind:value={email} placeholder="enter your password">
-<!--    <select bind:value={selected} on:change="{() => answer = ''}">-->
-<!--        {#each questions as question}-->
-<!--            <option value={question}>-->
-<!--                {question.text}-->
-<!--            </option>-->
-<!--        {/each}-->
-<!--    </select>-->
-
-<!--    <input bind:value={answer}>-->
-
+    <input bind:value={password} placeholder="enter your password">
     <button type=submit>
         Submit
     </button>
 </form>
-
-<!--<p>selected question {selected ? selected.id : '[waiting...]'}</p>-->
 
 <style>
     input { display: block; width: 500px; max-width: 100%; }

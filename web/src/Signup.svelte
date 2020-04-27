@@ -44,7 +44,7 @@
     }
 </script>
 
-<h2>Login</h2>
+<h2>Signup</h2>
 
 <form on:submit|preventDefault={handleSubmit}>
     <input bind:value={name} placeholder="enter your name">

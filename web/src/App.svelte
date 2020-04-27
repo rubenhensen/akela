@@ -3,27 +3,32 @@
 	import Continent from "./Continent.svelte";
 	import Continents from "./Continents.svelte";
 	import Signup from "./Signup.svelte";
+	import Signin from "./Signin.svelte";
+	import Profile from "./Profile.svelte";
 	let continent;
 </script>
 
-<h1>The Seven Continents Svelte App</h1>
+<h1>Akela</h1>
 
 <main>
 	<Signup />
+	<Signin />
+	<Profile />
 </main>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+	/*main {*/
+	/*	text-align: center;*/
+	/*	padding: 1em;*/
+	/*	max-width: 240px;*/
+	/*	margin: 0 auto;*/
+	/*}*/
+
 
 	h1 {
 		color: #ff3e00;
 		text-transform: uppercase;
-		font-size: 4em;
+		font-size: 2em;
 		font-weight: 100;
 	}
 
