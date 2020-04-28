@@ -17,10 +17,9 @@
         });
         const users = await res.json();
         if (res.ok) {
-            console.log(users);
             return users;
         } else {
-            throw new Error(res);
+            throw new Error(users.message);
         }
     }
 
@@ -34,7 +33,6 @@
 {#await promise}
     <p>...waiting</p>
 {:then users}
-
     <ul class="list-group">
     {#each users as { _id, name }, i}
         <li class="list-group-item d-flex "><span class="align-self-center">{name}</span> {#if isUser(_id)} <Button type="button" class="btn-sm float-right ml-auto p-2" color="primary">edit</Button>{/if}</li>
