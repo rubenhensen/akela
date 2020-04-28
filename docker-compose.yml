@@ -11,7 +11,7 @@ services:
       - './web:/app'
       - '/app/node_modules'
     ports:
-      - "5000:5000"
+      - "5000:3000"
       - "35729:35729"
 
   api:
