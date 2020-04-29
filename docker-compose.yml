@@ -12,7 +12,7 @@ services:
       - '/app/node_modules'
     ports:
       - "5000:3000"
-      - "35729:35729"
+      - "10000:10000"
 
   api:
     build:
