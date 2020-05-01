@@ -12,11 +12,14 @@ export default (app: Router) => {
   route.get('/me',
       middlewares.isAuth,
       middlewares.attachCurrentUser,
-      (req: Request, res: Response) => res.json({ user: req.currentUser })
-          .status(200));
+      (req: Request, res: Response) => {
+          res.json({user: req.currentUser})
+              .status(200)
+      });
 
   route.get('/all',
       middlewares.isAuth,
+      middlewares.attachCurrentUser,
       async (req: Request, res: Response) => {
         const userServiceInstance = Container.get(UserService);
         const allUsers = await userServiceInstance.GetAllUsers();

@@ -44,28 +44,21 @@
     }
 </script>
 
+<svelte:head>
+    <title>Sapper project template</title>
+</svelte:head>
+
 <h2>Signup</h2>
 
 <form on:submit|preventDefault={handleSubmit}>
     <input bind:value={name} placeholder="enter your name">
     <input bind:value={email} placeholder="enter your e-mail">
     <input bind:value={password} placeholder="enter your password">
-<!--    <select bind:value={selected} on:change="{() => answer = ''}">-->
-<!--        {#each questions as question}-->
-<!--            <option value={question}>-->
-<!--                {question.text}-->
-<!--            </option>-->
-<!--        {/each}-->
-<!--    </select>-->
-
-<!--    <input bind:value={answer}>-->
-
     <button type=submit>
         Submit
     </button>
 </form>
 
-<!--<p>selected question {selected ? selected.id : '[waiting...]'}</p>-->
 
 <style>
     input { display: block; width: 500px; max-width: 100%; }

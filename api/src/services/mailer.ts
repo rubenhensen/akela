@@ -19,8 +19,8 @@ export default class MailerService {
       text: 'Testing some Mailgun awesomness!',
     };
     this.emailClient.messages().send(data, (error, body) => {
-      console.log(body);
-      console.log(email);
+      // console.log(body);
+      // console.log(email);
     });
     // this.emailClient.messages().send(data);
     return { delivered: 1, status: 'ok' };

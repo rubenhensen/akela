@@ -1,4 +1,5 @@
 <script>
+    import { onMount } from 'svelte'
     let profile = {
         "user": {
             "role": "",
@@ -11,6 +12,10 @@
         },
         "token": ""
     };
+
+    onMount(async () => {
+        handleSubmit()
+    });
 
     async function getData(url = '') {
         // Default options are marked with *
@@ -35,6 +40,8 @@
         getData(url).then(data => profile = data);
     }
 
+    onMount
+
     function log() {
         console.log("clicked");
     }
@@ -42,9 +49,7 @@
 
 <h2>Profile</h2>
 
-    <button on:click={handleSubmit}>
-        Get profile
-    </button>
+
 
 
 
