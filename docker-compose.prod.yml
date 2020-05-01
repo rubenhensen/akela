@@ -46,6 +46,16 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       ME_CONFIG_MONGODB_SERVER: db
 
+  cypress:
+    image: "cypress/included:4.4.0"
+    depends_on:
+      - web
+    environment:
+      - CYPRESS_baseUrl=http://web:3000
+    working_dir: /e2e
+    volumes:
+      - ./web/e2e:/e2e
+
 volumes:
   db-data:
 

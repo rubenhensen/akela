@@ -44,6 +44,14 @@ help:
 
 start.prod: ## Create and start production containers
 	@echo "Starting development environment"
-	@docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
-	@docker logs -f akela_api_1
+	@docker-compose -f docker-compose.prod.yml up -d
+
+test.prod: ## Create and start production containers
+	@echo "Starting test environment"
+	@docker-compose -f docker-compose.prod.yml up --exit-code-from cypress
+
+stop.prod: ## Stop development containers
+	@echo "Stopping development environment"
+	@docker-compose -f docker-compose.prod.yml down
+
 
