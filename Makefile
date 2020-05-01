@@ -27,6 +27,10 @@ web: ## stream stdout api container
 db: ## stream stdout api container
 	@docker logs -f akela_db_1
 
+test: ## run tests on all containers
+	@npm test --prefix ./api
+
+
 debug: ## Stop, rebuild and start development containers
 	@echo "Stop, rebuild and start development environment"
 	@docker-compose -f docker-compose.yml down
@@ -37,3 +41,9 @@ debug: ## Stop, rebuild and start development containers
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+start.prod: ## Create and start production containers
+	@echo "Starting development environment"
+	@docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+	@docker logs -f akela_api_1
+

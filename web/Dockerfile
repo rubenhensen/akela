@@ -10,7 +10,10 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install app dependencies
 COPY package.json ./
 COPY package-lock.json ./
+RUN npm install --unsafe-perm=true cypress
 RUN npm install
+RUN apt-get update
+RUN apt-get install xvfb -y
 
 # add app
 COPY . ./
