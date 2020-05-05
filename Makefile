@@ -66,7 +66,7 @@ heroku.push.web:
 	@heroku container:release web
 
 heroku.login:
-	@heroku login -i
+	@heroku container:login
 	@sleep 4
 	@echo ruben.hensen@gmail.com
 	@sleep 4

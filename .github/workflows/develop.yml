@@ -32,5 +32,9 @@ jobs:
 
 #    - name: Build the docker-compose stack
 #      run: make test.prod
-    - name: Run heroku login
-      run: make heroku.login
+    - name: Login to Heroku Container registry
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:login
+    - name: Push and release Heroku Container registry
+        run: make heroku.push.web
