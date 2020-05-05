@@ -46,6 +46,10 @@ start.prod: ## Create and start production containers
 	@echo "Starting development environment"
 	@docker-compose -f docker-compose.prod.yml up -d
 
+build.prod: ## Create and start production containers
+	@echo "Building development environment"
+	@docker-compose -f docker-compose.prod.yml build
+
 test.prod: ## Create and start production containers
 	@echo "Starting test environment"
 	@docker-compose -f docker-compose.prod.yml up --exit-code-from cypress
@@ -53,5 +57,17 @@ test.prod: ## Create and start production containers
 stop.prod: ## Stop development containers
 	@echo "Stopping development environment"
 	@docker-compose -f docker-compose.prod.yml down
+
+heroku.push.web:
+	@echo "tagging and pushing"
+	@docker tag akela_web:latest registry.heroku.com/akela-frontend/web
+	@docker push registry.heroku.com/akela-frontend/web
+	@heroku git:remote -a akela-frontend
+	@heroku container:release web
+
+heroku.login:
+	@heroku login -i
+	@ruben.hensen@gmail.com
+	@${{ secrets.HEROKU_API_KEY }}
 
 

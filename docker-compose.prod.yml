@@ -6,13 +6,13 @@ services:
       - api
     build:
       context: ./web
-      dockerfile: Dockerfile
+      dockerfile: prod.Dockerfile
     volumes:
       - './web:/app'
       - '/app/node_modules'
+      - '/app/__sapper__'
     ports:
       - "5000:3000"
-      - "10000:10000"
 
   api:
     build:
@@ -34,7 +34,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-#    env_file: ./db/.env
 
   mongo-express:
     image: mongo-express
