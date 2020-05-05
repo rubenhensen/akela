@@ -67,7 +67,9 @@ heroku.push.web:
 
 heroku.login:
 	@heroku login -i
+	@sleep 2
 	@echo ruben.hensen@gmail.com
+	@sleep 2
 	@echo ${{ secrets.HEROKU_API_KEY }}
 	@heroku create testapp
 
