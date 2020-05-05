@@ -69,5 +69,7 @@ heroku.login:
 	@heroku login -i
 	@echo ruben.hensen@gmail.com
 	@echo ${{ secrets.HEROKU_API_KEY }}
+	@heroku create testapp
+
 
 
