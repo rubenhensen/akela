@@ -59,10 +59,24 @@ stop.prod: ## Stop development containers
 	@docker-compose -f docker-compose.prod.yml down
 
 heroku.push.web:
-	@echo "tagging and pushing"
+	@echo "tagging and pushing web"
 	@docker tag akela_web:latest registry.heroku.com/akela-frontend/web
 	@docker push registry.heroku.com/akela-frontend/web
 	@heroku git:remote -a akela-frontend
+	@heroku container:release web
+
+heroku.push.api:
+	@echo "tagging and pushing api"
+	@docker tag akela_api:latest registry.heroku.com/akela-backend/web
+	@docker push registry.heroku.com/akela-backend/web
+	@heroku git:remote -a akela-backend
+	@heroku container:release web
+
+heroku.push.db:
+	@echo "tagging and pushing db"
+	@docker tag akela_db:latest registry.heroku.com/akela-db/web
+	@docker push registry.heroku.com/akela-db/web
+	@heroku git:remote -a akela-db
 	@heroku container:release web
 
 
