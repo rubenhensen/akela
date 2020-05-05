@@ -27,6 +27,10 @@ web: ## stream stdout api container
 db: ## stream stdout api container
 	@docker logs -f akela_db_1
 
+test: ## run tests on all containers
+	@npm test --prefix ./api
+
+
 debug: ## Stop, rebuild and start development containers
 	@echo "Stop, rebuild and start development environment"
 	@docker-compose -f docker-compose.yml down
@@ -37,3 +41,44 @@ debug: ## Stop, rebuild and start development containers
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+start.prod: ## Create and start production containers
+	@echo "Starting development environment"
+	@docker-compose -f docker-compose.prod.yml up -d
+
+build.prod: ## Create and start production containers
+	@echo "Building development environment"
+	@docker-compose -f docker-compose.prod.yml build
+
+test.prod: ## Create and start production containers
+	@echo "Starting test environment"
+	@docker-compose -f docker-compose.prod.yml up --exit-code-from cypress
+
+stop.prod: ## Stop development containers
+	@echo "Stopping development environment"
+	@docker-compose -f docker-compose.prod.yml down
+
+heroku.push.web:
+	@echo "tagging and pushing web"
+	@docker tag akela_web:latest registry.heroku.com/akela-frontend/web
+	@docker push registry.heroku.com/akela-frontend/web
+	@heroku git:remote -a akela-frontend
+	@heroku container:release web
+
+heroku.push.api:
+	@echo "tagging and pushing api"
+	@docker tag akela_api:latest registry.heroku.com/akela-backend/web
+	@docker push registry.heroku.com/akela-backend/web
+	@heroku git:remote -a akela-backend
+	@heroku container:release web
+
+heroku.push.db:
+	@echo "tagging and pushing db"
+	@docker tag akela_db:latest registry.heroku.com/akela-db/web
+	@docker push registry.heroku.com/akela-db/web
+	@heroku git:remote -a akela-db
+	@heroku container:release web
+
+
+
+

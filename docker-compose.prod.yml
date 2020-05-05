@@ -6,24 +6,13 @@ services:
       - api
     build:
       context: ./web
-      dockerfile: Dockerfile
+      dockerfile: prod.Dockerfile
     volumes:
       - './web:/app'
       - '/app/node_modules'
+      - '/app/__sapper__'
     ports:
       - "5000:3000"
-      - "10000:10000"
-
-  webtest:
-    depends_on:
-      - db
-      - api
-    build:
-      context: ./web
-      dockerfile: test.Dockerfile
-    volumes:
-      - './web:/app'
-      - '/app/node_modules'
 
   api:
     build:
@@ -45,7 +34,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-#    env_file: ./db/.env
 
   mongo-express:
     image: mongo-express
@@ -56,6 +44,16 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       ME_CONFIG_MONGODB_SERVER: db
+
+  cypress:
+    image: "cypress/included:4.4.0"
+    depends_on:
+      - web
+    environment:
+      - CYPRESS_baseUrl=http://web:3000
+    working_dir: /e2e
+    volumes:
+      - ./web/e2e:/e2e
 
 volumes:
   db-data:
