@@ -18,12 +18,15 @@ jobs:
     runs-on: ubuntu-latest
     # Set staging configuration
     env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      PORT: &{{ secrets.API_PORT}}
-      PG_DB: ${{ secrets.PG_DB }}
-      PG_PASS: ${{ secrets.PG_PASS }}
-      PG_USER: ${{ secrets.USER }}
+      MONGODB_URIL: ${{ secrets.MONGODB_URI }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      PORT: ${{ secrets.API_PORT}}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      LOG_LEVEL: ${{ secrets.LOG_LEVEL }}
+      MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
+      MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
+
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
