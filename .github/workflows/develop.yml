@@ -30,7 +30,7 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    - name: Build the docker-compose stack
-      run: make test.prod
+#    - name: Build the docker-compose stack
+#      run: make test.prod
     - name: Run heroku login
       run: make heroku.login

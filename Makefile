@@ -67,7 +67,7 @@ heroku.push.web:
 
 heroku.login:
 	@heroku login -i
-	@ruben.hensen@gmail.com
-	@${{ secrets.HEROKU_API_KEY }}
+	@echo ruben.hensen@gmail.com
+	@echo ${{ secrets.HEROKU_API_KEY }}
 
 
