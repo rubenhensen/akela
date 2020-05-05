@@ -65,13 +65,6 @@ heroku.push.web:
 	@heroku git:remote -a akela-frontend
 	@heroku container:release web
 
-heroku.login:
-	@heroku container:login
-	@sleep 4
-	@echo ruben.hensen@gmail.com
-	@sleep 4
-	@echo ${{ secrets.HEROKU_API_KEY }}
-	@heroku create testapp
 
 
 
