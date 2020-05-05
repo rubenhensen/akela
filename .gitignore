@@ -2,4 +2,5 @@
 /public/build/
 .env
 .DS_Store
-/__sapper/
+/__sapper__/
+/node_modules/src/node_modules/
