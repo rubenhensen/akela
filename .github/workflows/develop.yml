@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     # Set staging configuration
     env:
-      MONGODB_URIL: ${{ secrets.MONGODB_URI }}
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
       PORT: ${{ secrets.API_PORT}}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
