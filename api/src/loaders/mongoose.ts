@@ -5,6 +5,7 @@ import config from '../config';
 export default async (): Promise<Db> => {
   const connection = await mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
+    // @ts-ignore
     useUnifiedTopology: true,
     useCreateIndex: true,
     user: process.env.DB_USERNAME,

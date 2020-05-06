@@ -1,5 +1,7 @@
 import winston from 'winston';
 import config from '../config';
+import Agenda from "agenda";
+import EmailSequenceJob from "../jobs/emailSequence";
 
 const transports = [];
 if (process.env.NODE_ENV !== 'development') {

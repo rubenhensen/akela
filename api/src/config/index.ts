@@ -1,13 +1,14 @@
 import dotenv from 'dotenv';
+import Logger from '../loaders/logger';
 
 // Set the NODE_ENV to 'development' by default
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 const envFound = dotenv.config();
 if (!envFound) {
-  // This error should crash whole process
-
-  throw new Error("⚠️  Couldn't find .env file  ⚠️");
+  // Error should fail silently so we can replace it with env variables in the CI pipeline
+  console.log(".env file is missing");
+  // throw new Error("⚠️  Couldn't find .env file  ⚠️");
 }
 
 export default {

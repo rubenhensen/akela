@@ -10,7 +10,7 @@ import pkg from './package.json';
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
-const apiUrl = !dev ? '"https://akela-backend.herokuapp.com/"' : '"http://localhost:3000/"';
+const apiUrl = !dev ? '"https://akela-backend.herokuapp.com"' : '"http://localhost:3000"';
 
 const onwarn = (warning, onwarn) => (warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) || onwarn(warning);
 
@@ -22,7 +22,7 @@ export default {
 			replace({
 				'process.browser': true,
 				'process.env.NODE_ENV': JSON.stringify(mode),
-				'process.env.API_URL': apiUrl
+				'API_URL': apiUrl
 			}),
 			svelte({
 				dev,
