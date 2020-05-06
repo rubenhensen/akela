@@ -14,6 +14,8 @@ RUN apk add build-base
 COPY package.json ./
 COPY package-lock.json ./
 RUN npm install --no-optional
+RUN echo "test"
+RUN echo $JWT_SECRET
 
 # add app
 COPY . ./
