@@ -10,6 +10,7 @@ if (!envFound) {
   console.log(".env file is missing");
   // throw new Error("⚠️  Couldn't find .env file  ⚠️");
 }
+console.log("console.log jwt secret: " + process.env.JWT_SECRET);
 
 export default {
   /**
