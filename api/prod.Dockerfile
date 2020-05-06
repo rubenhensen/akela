@@ -20,4 +20,4 @@ COPY . ./
 RUN npm run build
 
 # start app
-CMD ["node", ".build/app.js"]
+CMD ["node", "./build/app.js"]
