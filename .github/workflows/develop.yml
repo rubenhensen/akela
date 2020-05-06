@@ -26,6 +26,7 @@ jobs:
       LOG_LEVEL: ${{ secrets.LOG_LEVEL }}
       MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
       MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
+      API_URL: ${{ secrets.API_URL }}
 
 
     # Steps represent a sequence of tasks that will be executed as part of the job
