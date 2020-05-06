@@ -17,6 +17,7 @@ RUN npm install --no-optional
 
 # add app
 COPY . ./
+RUN npm run build
 
 # start app
 CMD ["node", ".build/app.js"]
