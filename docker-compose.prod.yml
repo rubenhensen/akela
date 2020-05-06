@@ -25,14 +25,14 @@ services:
       - "3000:3000"
     environment:
       JWT_SECRET: ${JWT_SECRET}
-      MONGODB_URI: ${MONGODB_URI }
+      MONGODB_URI: ${MONGODB_URI}
       PORT: ${API_PORT}
-      DB_PASSWORD: ${DB_PASSWORD }
-      DB_USERNAME: ${DB_USERNAME }
-      LOG_LEVEL: ${LOG_LEVEL }
-      MAILGUN_API_KEY: ${MAILGUN_API_KEY }
-      MAILGUN_DOMAIN: ${MAILGUN_DOMAIN }
-      API_URL: ${API_URL }
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_USERNAME: ${DB_USERNAME}
+      LOG_LEVEL: ${LOG_LEVEL}
+      MAILGUN_API_KEY: ${MAILGUN_API_KEY}
+      MAILGUN_DOMAIN: ${MAILGUN_DOMAIN}
+      API_URL: ${API_URL}
   
   db:
     build:
