@@ -44,3 +44,7 @@
 </figure>
 
 <p><strong>Test 7</strong></p>
+
+<script>
+	console.log(process.env.API_URL);
+</script>
