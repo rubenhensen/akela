@@ -43,6 +43,7 @@ export default ({ app }: { app: express.Application }) => {
   app.use(cookieParser());
 
   // Load API routes
+  app.options('*', cors()); // include before other routes
   app.use(config.api.prefix, routes());
 
   // / catch 404 and forward to error handler
