@@ -17,25 +17,27 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     # Set staging configuration
-    
+    env:
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      PORT: ${{ secrets.API_PORT}}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      LOG_LEVEL: ${{ secrets.LOG_LEVEL }}
+      MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
+      MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
+      API_URL: ${{ secrets.API_URL }}
+      MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+      MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
+    - name: Test echo
+      run: echo jwtscrt $JWT_SECRET
+
     - name: Build the docker-compose stack
-      env:
-        JWT_SECRET: ${{ secrets.JWT_SECRET }}
-        MONGODB_URI: ${{ secrets.MONGODB_URI }}
-        PORT: ${{ secrets.API_PORT}}
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        DB_USERNAME: ${{ secrets.DB_USERNAME }}
-        LOG_LEVEL: ${{ secrets.LOG_LEVEL }}
-        MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
-        MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
-        API_URL: ${{ secrets.API_URL }}
-        MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
-        MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
       run: make test.prod
     - name: Login to Heroku Container registry
       env:
