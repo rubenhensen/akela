@@ -5,11 +5,9 @@ import Logger from '../loaders/logger';
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 // Error should fail silently so we can replace it with env variables in the CI pipeline
-try {
-  dotenv.config();
-} catch (err) {
+const result = dotenv.config();
+if (result.error) {
   console.log(".env file is missing");
-  console.log(err);
 }
 
 export default {
