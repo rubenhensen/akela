@@ -39,15 +39,6 @@
             throw new Error(profile.message);
         }
     }
-    // function handleSubmit() {
-    //     let url = API_URL + '/api/users/me';
-    //     let data = {};
-    //     getData(url).then(data => profile = data);
-    // }
-
-    // function log() {
-    //     console.log("clicked");
-    // }
 </script>
 
 <h2>Profile</h2>
