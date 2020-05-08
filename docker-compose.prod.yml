@@ -18,21 +18,22 @@ services:
     build:
       context: ./api
       dockerfile: prod.Dockerfile
+      args:
+        - JWT_SECRET
+        - MONGODB_URI
+        - PORT
+        - DB_PASSWORD
+        - DB_USERNAME
+        - LOG_LEVEL
+        - MAILGUN_API_KEY
+        - MAILGUN_DOMAIN
+        - API_URL
     volumes:
       - './api:/app'
       - '/app/node_modules'
     ports:
       - "3000:3000"
-    args:
-      - JWT_SECRET
-      - MONGODB_URI
-      - PORT
-      - DB_PASSWORD
-      - DB_USERNAME
-      - LOG_LEVEL
-      - MAILGUN_API_KEY
-      - MAILGUN_DOMAIN
-      - API_URL
+
   
   db:
     build:
