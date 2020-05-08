@@ -25,7 +25,7 @@ export default ({ app }: { app: express.Application }) => {
   // Alternate description:
   // Enable Cross Origin Resource Sharing to all origins by default
   const corsOptions = {
-    origin: 'http://localhost:5000',
+    origin: config.frontendUrl,
     credentials: true,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   };

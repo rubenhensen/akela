@@ -4,16 +4,20 @@ import Logger from '../loaders/logger';
 // Set the NODE_ENV to 'development' by default
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-const envFound = dotenv.config();
-console.log(envFound);
-if (!envFound) {
-  // Error should fail silently so we can replace it with env variables in the CI pipeline
+// Error should fail silently so we can replace it with env variables in the CI pipeline
+try {
+  dotenv.config();
+} catch (err) {
   console.log(".env file is missing");
-  // throw new Error("⚠️  Couldn't find .env file  ⚠️");
+  console.log(err);
 }
-console.log("console.log jwt secret: " + process.env.JWT_SECRET);
 
 export default {
+  /**
+   * Your frontend url for CORS
+   */
+  frontendUrl: process.env.FRONTEND_URL,
+
   /**
    * Your favorite port
    */
