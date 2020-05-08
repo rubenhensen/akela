@@ -33,7 +33,7 @@
         return response.json(); // parses JSON response into native JavaScript objects
     }
     function handleSubmit() {
-        let url = 'http://localhost:3000/api/auth/signin';
+        let url = API_URL + '/api/auth/signin';
         let data = {
             "email": email,
             "password": password

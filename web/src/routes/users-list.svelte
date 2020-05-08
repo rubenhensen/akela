@@ -2,7 +2,7 @@
     import { Button } from 'sveltestrap';
     let promise = getUsers();
     async function getUsers() {
-        const res = await fetch(`http://localhost:3000/api/users/all`, {
+        const res = await fetch(API_URL + '/api/users/all', {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
