@@ -24,14 +24,15 @@ export default ({ app }: { app: express.Application }) => {
   // The magic package that prevents frontend developers going nuts
   // Alternate description:
   // Enable Cross Origin Resource Sharing to all origins by default
-  // const corsOptions = {
-  //   origin: config.frontendUrl,
-  //   credentials: true,
-  //   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  // };
+  const corsOptions = {
+    origin: true,
+    // origin: config.frontendUrl,
+    credentials: true,
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  };
   // app.use(cors(corsOptions));
   // app.options('*', cors()); // include before other routes
-  app.use(cors());
+  app.use(cors(corsOptions));
 
   // Some sauce that always add since 2014
   // "Lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it."
