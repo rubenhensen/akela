@@ -38,7 +38,7 @@ jobs:
       run: echo jwtscrt $JWT_SECRET
 
     - name: Build the docker-compose stack
-      run: make test.prod
+      run: docker-compose -f docker-compose.prod.yml up --exit-code-from cypress
     - name: Login to Heroku Container registry
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}

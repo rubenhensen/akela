@@ -13,7 +13,7 @@ RUN apk add make
 RUN apk add build-base
 COPY package.json ./
 COPY package-lock.json ./
-RUN npm install --no-optional
+RUN npm install --production
 
 # add app
 COPY . ./
