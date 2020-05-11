@@ -1,4 +1,6 @@
 <script>
+    import { goto } from '@sapper/app';
+
     let name = '';
     let email = '';
     let password = '';

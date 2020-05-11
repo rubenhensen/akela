@@ -1,21 +1,4 @@
 <script>
-    // import { onMount } from 'svelte'
-    // let profile = {
-    //     "user": {
-    //         "role": "",
-    //         "_id": "",
-    //         "name": "",
-    //         "email": "",
-    //         "createdAt": "",
-    //         "updatedAt": "",
-    //         "__v": null
-    //     },
-    //     "token": ""
-    // };
-
-    // onMount(async () => {
-    //     handleSubmit()
-    // });
     let promise = getData();
     async function getData() {
         // Default options are marked with *

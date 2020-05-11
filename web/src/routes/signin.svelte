@@ -1,20 +1,23 @@
 <script>
+    import { loggedIn } from '../stores.js';
+    import { goto } from '@sapper/app';
     let email = '';
     let password = '';
 
-    let questions = [
-        { id: 1, text: `Bevers` },
-        { id: 2, text: `Welpen Jongens` },
-        { id: 3, text: `Welpen Meisjes` },
-        { id: 4, text: `Scouts` },
-        { id: 5, text: `Explorers` },
-        { id: 6, text: `Roverscouts` },
-        { id: 7, text: `Pivos` },
-    ];
+    // let questions = [
+    //     { id: 1, text: `Bevers` },
+    //     { id: 2, text: `Welpen Jongens` },
+    //     { id: 3, text: `Welpen Meisjes` },
+    //     { id: 4, text: `Scouts` },
+    //     { id: 5, text: `Explorers` },
+    //     { id: 6, text: `Roverscouts` },
+    //     { id: 7, text: `Pivos` },
+    // ];
 
     let selected;
+    let promise;
 
-    let answer = '';
+    // let answer = '';
     async function postData(url = '', data = {}) {
         // Default options are marked with *
         const response = await fetch(url, {
@@ -30,7 +33,15 @@
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
             body: JSON.stringify(data) // body data type must match "Content-Type" header
         });
-        return response.json(); // parses JSON response into native JavaScript objects
+        const login = await response.json(); // parses JSON response into native JavaScript objects
+        if (response.ok) {
+            loggedIn.update(n => true);
+            await goto('/');
+            return login;
+        } else {
+            // console.log(login.errors);
+            throw new Error(login.errors.message);
+        }
     }
     function handleSubmit() {
         let url = API_URL + '/api/auth/signin';
@@ -38,7 +49,7 @@
             "email": email,
             "password": password
         };
-        postData(url, data);
+        promise = postData(url, data);
     }
 </script>
 
@@ -51,6 +62,12 @@
         Submit
     </button>
 </form>
+
+{#await promise}
+<p>Loading...</p>
+{:catch error}
+    <p style="color: red">{error}</p>
+{/await}
 
 <style>
     input { display: block; width: 500px; max-width: 100%; }

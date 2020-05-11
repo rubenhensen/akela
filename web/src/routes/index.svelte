@@ -37,6 +37,10 @@
 </svelte:head>
 
 <h1>Great success!</h1>
+<Button on:click={() => clicked++}>
+	<Icon class="material-icons">thumb_up</Icon>
+	<Label>Click Me</Label>
+</Button>
 
 <figure>
 	<img alt='Borat' src='great-success.png'>
@@ -46,4 +50,6 @@
 <p><strong>Test 7</strong></p>
 
 <script>
+	import Button, {Label, Icon} from '@smui/button';
+	let clicked = 0;
 </script>
