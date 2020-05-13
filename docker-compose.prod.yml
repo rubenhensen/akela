@@ -17,8 +17,6 @@ services:
   api:
     build:
       context: ./api
-      depends_on:
-        - db
       dockerfile: prod.Dockerfile
       args:
         - JWT_SECRET
@@ -33,6 +31,8 @@ services:
     volumes:
       - './api:/app'
       - '/app/node_modules'
+    depends_on:
+      - db
     ports:
       - "3000:3000"
 
