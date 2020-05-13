@@ -29,7 +29,6 @@ services:
         - MAILGUN_DOMAIN
         - API_URL
     volumes:
-      - './api:/app'
       - '/app/node_modules'
     depends_on:
       - db
