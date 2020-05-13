@@ -1,23 +1,23 @@
 <script>
     import { loggedIn } from '../stores.js';
     import { goto } from '@sapper/app';
+    import Textfield, {Input, Textarea} from '@smui/textfield';
+    import Icon from '@smui/textfield/icon/index';
+    import Button, { Label } from '@smui/button';
+    import HelperText from '@smui/textfield/helper-text/index';
+    import CharacterCounter from '@smui/textfield/character-counter/index';
+    import {Icon as CommonIcon} from '@smui/common';
+    import FloatingLabel from '@smui/floating-label';
+    import LineRipple from '@smui/line-ripple';
+    import NotchedOutline from '@smui/notched-outline';
     let email = '';
     let password = '';
-
-    // let questions = [
-    //     { id: 1, text: `Bevers` },
-    //     { id: 2, text: `Welpen Jongens` },
-    //     { id: 3, text: `Welpen Meisjes` },
-    //     { id: 4, text: `Scouts` },
-    //     { id: 5, text: `Explorers` },
-    //     { id: 6, text: `Roverscouts` },
-    //     { id: 7, text: `Pivos` },
-    // ];
+    let valueOutlinedB = '';
 
     let selected;
     let promise;
+    let clicked;
 
-    // let answer = '';
     async function postData(url = '', data = {}) {
         // Default options are marked with *
         const response = await fetch(url, {
@@ -53,15 +53,32 @@
     }
 </script>
 
-<h2>Signin</h2>
+<div class="center">
 
+<img alt='MBG logo' src='logozondertekst.png'>
+    <h2>Sign in</h2>
 <form on:submit|preventDefault={handleSubmit}>
-    <input bind:value={email} placeholder="enter your e-mail">
-    <input bind:value={password} placeholder="enter your password">
-    <button type=submit>
-        Submit
-    </button>
+    <div>
+        <Textfield variant="outlined" withLeadingIcon bind:value={email} label="E-mail" input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b">
+            <Icon class="material-icons">email</Icon>
+        </Textfield>
+<!--        <HelperText id="helper-text-outlined-b">Helper Text</HelperText>-->
+<!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
+    </div>
+    <div>
+        <Textfield variant="outlined" withLeadingIcon bind:value={password} label="Password" input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b" type="password">
+            <Icon class="material-icons">lock</Icon>
+        </Textfield>
+        <!--        <HelperText id="helper-text-outlined-b">Helper Text</HelperText>-->
+<!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
+    </div>
+    <div>
+    <Button type=submit on:click={() => clicked++} variant="raised"><Label>Log in</Label></Button>
+        <span>- or -</span>
+    <Button on:click={() => clicked++} ripple={false}><Label>Register</Label></Button>
+    </div>
 </form>
+</div>
 
 {#await promise}
 <p>Loading...</p>
@@ -70,5 +87,33 @@
 {/await}
 
 <style>
-    input { display: block; width: 500px; max-width: 100%; }
+    h2 {
+        text-align: center;
+    }
+    img {
+        width: 70%;
+        max-width: 400px;
+        margin: 0 0 1em 0;
+    }
+
+    .center {
+        text-align: center;
+        /*margin: 0 auto;*/
+    }
+
+    form {
+         display: inline-block;
+    }
+
+    :global(.mdc-text-field) {
+        margin-bottom: .4em;
+    }
+
+    span {
+        margin: 0 .4em;
+    }
+
+    /** :global(.mdc-button, .smui-button__group) {*/
+    /*    margin-bottom: .4em;*/
+    /*}*/
 </style>

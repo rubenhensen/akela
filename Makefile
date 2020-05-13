@@ -37,7 +37,6 @@ debug: ## Stop, rebuild and start development containers
 	@docker system prune -f	
 	@docker-compose build
 	@docker-compose -f docker-compose.yml up -d
-	@docker logs -f akela_api_1
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -57,6 +56,13 @@ test.prod: ## Create and start production containers
 stop.prod: ## Stop development containers
 	@echo "Stopping development environment"
 	@docker-compose -f docker-compose.prod.yml down
+
+debug.prod: ## Stop, rebuild and start development containers
+	@echo "Stop, rebuild and start development environment"
+	@docker-compose -f docker-compose.prod.yml down
+	@docker system prune -f
+	@docker-compose build
+	@docker-compose -f docker-compose.prod.yml up -d
 
 heroku.push.web:
 	@echo "tagging and pushing web"

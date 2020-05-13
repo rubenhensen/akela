@@ -3,4 +3,4 @@
 /src/node_modules/
 .DS_Store
 /__sapper__/
-
+/e2e/cypress/screenshots/

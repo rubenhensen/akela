@@ -19,9 +19,8 @@
 
 <AppBar/>
 
-
-	<main>
+<main>
 	<slot></slot>
-	</main>
+</main>
 
 <Nav {segment}/>

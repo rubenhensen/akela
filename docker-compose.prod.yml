@@ -17,6 +17,8 @@ services:
   api:
     build:
       context: ./api
+      depends_on:
+        - db
       dockerfile: prod.Dockerfile
       args:
         - JWT_SECRET
@@ -49,6 +51,8 @@ services:
   mongo-express:
     image: mongo-express
     restart: always
+    depends_on:
+      - db
     ports:
       - 8081:8081
     environment:
