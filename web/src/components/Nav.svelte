@@ -2,7 +2,7 @@
 	export let segment;
 	import { loggedIn } from '../stores';
 	import { stores, goto } from '@sapper/app';
-	const { preloading, page, session } = stores();
+	const { page } = stores();
 
 	page.subscribe(({ path, params, query }) => {
 		if (process.browser) {

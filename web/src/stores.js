@@ -2,4 +2,4 @@ import { writable } from 'svelte/store';
 
 export const loggedIn = writable(false);
 
-export const title = writable('');
+export const appBarTitle = writable('');

@@ -4,12 +4,6 @@
     import Textfield, {Input, Textarea} from '@smui/textfield';
     import Icon from '@smui/textfield/icon/index';
     import Button, { Label } from '@smui/button';
-    import HelperText from '@smui/textfield/helper-text/index';
-    import CharacterCounter from '@smui/textfield/character-counter/index';
-    import {Icon as CommonIcon} from '@smui/common';
-    import FloatingLabel from '@smui/floating-label';
-    import LineRipple from '@smui/line-ripple';
-    import NotchedOutline from '@smui/notched-outline';
     let email = '';
     let password = '';
     let valueOutlinedB = '';
@@ -35,8 +29,6 @@
         });
         const login = await response.json(); // parses JSON response into native JavaScript objects
         if (response.ok) {
-            loggedIn.update(n => true);
-            await goto('/');
             return login;
         } else {
             // console.log(login.errors);
@@ -50,6 +42,10 @@
             "password": password
         };
         promise = postData(url, data);
+        promise
+                .then(() => loggedIn.update(n => true))
+                .then(async () => await goto('/'));
+
     }
 </script>
 
@@ -81,7 +77,7 @@
 </div>
 
 {#await promise}
-<p>Loading...</p>
+<!--<p>Loading...</p>-->
 {:catch error}
     <p style="color: red">{error}</p>
 {/await}

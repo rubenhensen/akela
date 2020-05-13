@@ -51,5 +51,10 @@
 
 <script>
 	import Button, {Label, Icon} from '@smui/button';
+	import { appBarTitle } from '../stores';
+	import {onMount} from 'svelte';
+
+	onMount(() => appBarTitle.update(t => pageTitle));
+	let pageTitle = 'Checklist';
 	let clicked = 0;
 </script>

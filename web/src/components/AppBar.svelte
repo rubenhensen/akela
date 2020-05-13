@@ -5,7 +5,7 @@
     import Checkbox from '@smui/checkbox';
     import FormField from '@smui/form-field';
     import LoremIpsum from './LoremIpsum.svelte';
-    import { loggedIn } from '../stores';
+    import { loggedIn, appBarTitle } from '../stores';
     let prominent = false;
     let dense = false;
     let secondaryColor = false;
@@ -23,7 +23,7 @@
         <Row>
             <Section>
                 <IconButton class="material-icons">menu</IconButton>
-                <Title>{title}</Title>
+                <Title>{$appBarTitle}</Title>
             </Section>
             <Section align="end" toolbar>
                 <IconButton class="material-icons" aria-label="Download">file_download</IconButton>

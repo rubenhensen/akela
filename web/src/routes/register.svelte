@@ -9,19 +9,6 @@
     let email = '';
     let password = '';
 
-    let questions = [
-        { id: 1, text: `Bevers` },
-        { id: 2, text: `Welpen Jongens` },
-        { id: 3, text: `Welpen Meisjes` },
-        { id: 4, text: `Scouts` },
-        { id: 5, text: `Explorers` },
-        { id: 6, text: `Roverscouts` },
-        { id: 7, text: `Pivos` },
-    ];
-
-    let selected;
-
-    let answer = '';
     async function postData(url = '', data = {}) {
         // Default options are marked with *
         const response = await fetch(url, {
@@ -84,7 +71,7 @@
         <div>
             <Button type="submit" variant="raised"><Label>Register</Label></Button>
             <span>- or -</span>
-            <Button type="button" on:click={() => goto('/register')} ripple={false}><Label>Log in</Label></Button>
+            <Button type="button" on:click={() => goto('/signin')} ripple={false}><Label>Log in</Label></Button>
         </div>
     </form>
 </div>
