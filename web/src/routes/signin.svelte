@@ -55,7 +55,7 @@
 
 <div class="center">
 
-<img alt='MBG logo' src='logozondertekst.png'>
+<img alt='MBG logo' src='logozondertekst.svg'>
     <h2>Sign in</h2>
 <form on:submit|preventDefault={handleSubmit}>
     <div>
