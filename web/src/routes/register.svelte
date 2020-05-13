@@ -1,5 +1,9 @@
 <script>
     import { goto } from '@sapper/app';
+    import { loggedIn } from '../stores.js';
+    import Textfield, {Input, Textarea} from '@smui/textfield';
+    import Icon from '@smui/textfield/icon/index';
+    import Button, { Label } from '@smui/button';
 
     let name = '';
     let email = '';
@@ -50,18 +54,65 @@
     <title>Sapper project template</title>
 </svelte:head>
 
-<h2>Register</h2>
 
-<form on:submit|preventDefault={handleSubmit}>
-    <input bind:value={name} placeholder="enter your name">
-    <input bind:value={email} placeholder="enter your e-mail">
-    <input bind:value={password} placeholder="enter your password">
-    <button type=submit>
-        Submit
-    </button>
-</form>
+<div class="center">
 
+    <img alt='MBG logo' src='logozondertekst.svg'>
+    <h2>Register</h2>
+    <form on:submit|preventDefault={handleSubmit}>
+        <div>
+            <Textfield variant="outlined" withLeadingIcon bind:value={name} label="Name" input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b">
+                <Icon class="material-icons">person</Icon>
+            </Textfield>
+            <!--        <HelperText id="helper-text-outlined-b">Helper Text</HelperText>-->
+            <!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
+        </div>
+        <div>
+            <Textfield variant="outlined" withLeadingIcon bind:value={email} label="E-mail" input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b">
+                <Icon class="material-icons">email</Icon>
+            </Textfield>
+            <!--        <HelperText id="helper-text-outlined-b">Helper Text</HelperText>-->
+            <!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
+        </div>
+        <div>
+            <Textfield variant="outlined" withLeadingIcon bind:value={password} label="Password" input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b" type="password">
+                <Icon class="material-icons">lock</Icon>
+            </Textfield>
+            <!--        <HelperText id="helper-text-outlined-b">Helper Text</HelperText>-->
+            <!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
+        </div>
+        <div>
+            <Button type="submit" variant="raised"><Label>Register</Label></Button>
+            <span>- or -</span>
+            <Button type="button" on:click={() => goto('/register')} ripple={false}><Label>Log in</Label></Button>
+        </div>
+    </form>
+</div>
 
 <style>
-    input { display: block; width: 500px; max-width: 100%; }
+    h2 {
+        text-align: center;
+    }
+    img {
+        width: 70%;
+        max-width: 400px;
+        margin: 0 0 1em 0;
+    }
+
+    .center {
+        text-align: center;
+        /*margin: 0 auto;*/
+    }
+
+    form {
+        display: inline-block;
+    }
+
+    :global(.mdc-text-field) {
+        margin-bottom: .8em;
+    }
+
+    span {
+        margin: 0 .8em;
+    }
 </style>

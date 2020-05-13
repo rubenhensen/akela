@@ -73,9 +73,9 @@
 <!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
     </div>
     <div>
-    <Button type=submit on:click={() => clicked++} variant="raised"><Label>Log in</Label></Button>
+        <Button type="submit" variant="raised"><Label>Log in</Label></Button>
         <span>- or -</span>
-    <Button on:click={() => clicked++} ripple={false}><Label>Register</Label></Button>
+        <Button type="button" on:click={() => goto('/register')} ripple={false}><Label>Register</Label></Button>
     </div>
 </form>
 </div>
@@ -106,14 +106,11 @@
     }
 
     :global(.mdc-text-field) {
-        margin-bottom: .4em;
+        margin-bottom: .8em;
     }
 
     span {
-        margin: 0 .4em;
+        margin: 0 .8em;
     }
 
-    /** :global(.mdc-button, .smui-button__group) {*/
-    /*    margin-bottom: .4em;*/
-    /*}*/
 </style>
