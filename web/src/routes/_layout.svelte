@@ -1,6 +1,7 @@
 <script>
 	import Nav from '../components/Nav.svelte';
-
+	import AppBar from '../components/AppBar.svelte';
+	import { FixedAdjust } from '@smui/top-app-bar'
 	export let segment;
 </script>
 
@@ -15,8 +16,12 @@
 	}
 </style>
 
-<Nav {segment}/>
 
-<main>
+<AppBar/>
+
+
+	<main>
 	<slot></slot>
-</main>
+	</main>
+
+<Nav {segment}/>

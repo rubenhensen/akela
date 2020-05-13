@@ -3,6 +3,7 @@ import {
 } from 'express';
 import { Container } from 'typedi';
 import { celebrate, Joi } from 'celebrate';
+import winston from "winston";
 import AuthService from '../../services/auth';
 import { IUserInputDTO } from '../../interfaces/IUser';
 import middlewares from '../middlewares';
@@ -22,15 +23,13 @@ export default (app: Router) => {
       }),
     }),
     async (req: Request, res: Response, next: NextFunction) => {
-      const logger = Container.get('logger');
-      // @ts-ignore
+      const logger = Container.get<winston.Logger>('logger');
       logger.debug('Calling Sign-Up endpoint with body: %o', req.body);
       try {
         const authServiceInstance = Container.get(AuthService);
         const { user, token } = await authServiceInstance.SignUp(req.body as IUserInputDTO);
         return res.status(201).json({ user, token });
       } catch (e) {
-        // @ts-ignore
         logger.error('🔥 error: %o', e);
         return next(e);
       }
@@ -46,7 +45,7 @@ export default (app: Router) => {
       }),
     }),
     async (req: Request, res: Response, next: NextFunction) => {
-      const logger = Container.get('logger');
+      const logger = Container.get<winston.Logger>('logger');
       // @ts-ignore
       logger.debug('Calling Sign-In endpoint with body: %o', req.body);
       try {
@@ -59,7 +58,6 @@ export default (app: Router) => {
           .status(200)
           .json({ user, token });
       } catch (e) {
-        // @ts-ignore
         logger.error('🔥 error: %o', e);
         return next(e);
       }

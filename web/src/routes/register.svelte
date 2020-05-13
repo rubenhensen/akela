@@ -50,7 +50,7 @@
     <title>Sapper project template</title>
 </svelte:head>
 
-<h2>Signup</h2>
+<h2>Register</h2>
 
 <form on:submit|preventDefault={handleSubmit}>
     <input bind:value={name} placeholder="enter your name">

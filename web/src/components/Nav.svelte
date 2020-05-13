@@ -1,5 +1,20 @@
 <script>
 	export let segment;
+	import { loggedIn } from '../stores';
+	import { stores, goto } from '@sapper/app';
+	const { preloading, page, session } = stores();
+
+	page.subscribe(({ path, params, query }) => {
+		if (process.browser) {
+			if (!$loggedIn && (path !== '/signin' && path !== '/register')) {
+				redirectToLogin()
+			}
+		}
+	});
+
+	async function redirectToLogin() {
+		await goto('/signin');
+	}
 </script>
 
 <style>
@@ -48,6 +63,7 @@
 	}
 </style>
 
+{#if $loggedIn}
 <nav>
 	<ul>
 		<li><a aria-current='{segment === undefined ? "page" : undefined}' href='.'>home</a></li>
@@ -62,3 +78,4 @@
 		<li><a rel=prefetch aria-current='{segment === "blog" ? "page" : undefined}' href='blog'>blog</a></li>
 	</ul>
 </nav>
+{/if}
