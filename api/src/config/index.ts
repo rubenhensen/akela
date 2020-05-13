@@ -7,7 +7,8 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 // Error should fail silently so we can replace it with env variables in the CI pipeline
 const result = dotenv.config();
 if (result.error) {
-  console.log(".env file is missing");
+  console.log('.env file is missing');
+  console.log(`mongod_uri: ${process.env.MONGODB_URI}`);
 }
 
 export default {
