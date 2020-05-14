@@ -37,6 +37,7 @@
 </svelte:head>
 
 <h1>Great success!</h1>
+<!--<LoremIpsum/>-->
 <Button on:click={() => clicked++}>
 	<Icon class="material-icons">thumb_up</Icon>
 	<Label>Click Me</Label>
@@ -51,10 +52,11 @@
 
 <script>
 	import Button, {Label, Icon} from '@smui/button';
-	import { appBarTitle } from '../stores';
+	import {appBarTitle} from '../stores';
 	import {onMount} from 'svelte';
+	import LoremIpsum from "../components/LoremIpsum.svelte";
 
-	onMount(() => appBarTitle.update(t => pageTitle));
-	let pageTitle = 'Checklist';
+	// onMount(() => appBarTitle.update(t => pageTitle));
+	// let pageTitle = 'Checklist';
 	let clicked = 0;
 </script>

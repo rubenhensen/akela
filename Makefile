@@ -4,7 +4,8 @@
 start: ## Create and start development containers
 	@echo "Starting development environment"
 	@docker-compose -f docker-compose.yml up -d
-	@docker logs -f akela_api_1
+	@/opt/google/chrome/chrome http://localhost:5000 --guest
+	@/opt/google/chrome/chrome http://localhost:8081 --guest
 
 build: ## Rebuild development containers
 	@echo "Rebuilding development containers"
@@ -21,10 +22,10 @@ restart: ## Stop and restart development containers
 api: ## stream stdout api container
 	@docker logs -f akela_api_1
 
-web: ## stream stdout api container
+web: ## stream stdout web container
 	@docker logs -f akela_web_1
 
-db: ## stream stdout api container
+db: ## stream stdout db container
 	@docker logs -f akela_db_1
 
 test: ## run tests on all containers
