@@ -19,28 +19,10 @@
 				<Checkbox bind:group={selectedCheckbox} value="{item.name}" />
 			</Meta>
 		</Item>
-		<Separator />
 	{/each}
+	<Separator />
 </List>
-
-<List class="demo-list" twoLine avatarList singleSelection bind:selectedIndex={selectionIndex}>
-	<Subheader>Verwacht</Subheader>
-	{#each aanwezig.sort(sortByName) as item}
-		<Item on:SMUI:action={() => selectionTwoLine = item.name} disabled={item.disabled} selected={selectionTwoLine === item.name}>
-			<Graphic style="background-image: url(https://via.placeholder.com/40x40.png?text={item.name.split(' ').map(val => val.substring(0, 1)).join('')});" />
-			<Text>
-				<PrimaryText>{item.name}</PrimaryText>
-				<SecondaryText>{item.description}</SecondaryText>
-			</Text>
-			<Meta>
-				<Checkbox bind:group={selectedCheckbox} value="{item.name}" />
-			</Meta>
-		</Item>
-		<Separator />
-	{/each}
-
-</List>
-
+<!--<Separator />-->
 <List class="demo-list" twoLine avatarList singleSelection bind:selectedIndex={selectionIndex}>
 	<Subheader>Afgemeld</Subheader>
 	{#each afgemeld.sort(sortByName) as item}
@@ -88,30 +70,6 @@
 			disabled: false
 		}
 	];
-
-	let aanwezig = [
-		{
-			name: 'Batman',
-			description: 'Scout',
-			disabled: false
-		},
-		{
-			name: 'Superman',
-			description: 'Scout',
-			disabled: false
-		},
-		{
-			name: 'Spiderman',
-			description: 'Scout',
-			disabled: false
-		},
-		{
-			name: 'The Joker',
-			description: 'Leiding',
-			disabled: false
-		}
-	];
-
 	let afgemeld = [
 		{
 			name: 'Tom Holland',
@@ -140,7 +98,7 @@
 	let selectionIndex = null;
 	let clickedGroup = 'nothing yet';
 	let selectedRadio = 'Tom Hanks';
-	let selectedCheckbox = ['Batman','Superman','Spiderman','The Joker'];
+	let selectedCheckbox = ['Tom Hanks'];
 	// onMount(() => appBarTitle.update(t => pageTitle));
 	// let pageTitle = 'Checklist';
 	let clicked = 0;

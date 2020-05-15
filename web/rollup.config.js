@@ -26,6 +26,7 @@ const postcssOptions = () => ({
 				includePaths: [
 					"./src/theme",
 					"./node_modules",
+					"./src/routes"
 					// This is only needed because we're using a local module. :-/
 					// Normally, you would not need this line.
 					// path.resolve(__dirname, "..", "node_modules")

@@ -23,10 +23,11 @@
 		bottom: 0px;
 		width: 100%;
 		height:56px;
-		border-bottom: 1px solid rgba(200,200,200,1);
+		/*border-bottom: 1px solid rgba(200,200,200,1);*/
 		border-top: 1px solid rgba(200,200,200,1);
 		/*font-weight: 300;*/
 		/*padding: 0 1em;*/
+		background-color: rgb(255, 255, 255);
 	}
 
 	ul {
@@ -84,16 +85,30 @@
 		flex-direction: column;
 		align-items: center;
 	}
+	.adjust {
+		display: block;
+		width: 100%;
+		height: 56px;
+	}
 </style>
 
 {#if $loggedIn}
+<div class="adjust"></div>
 <nav>
 	<ul>
 		<li>
 			<a aria-current='{segment === undefined ? "page" : undefined}' href='.'>
 				<div class="flex-container">
 					<i class="material-icons">check_box</i>
-					<span>Checklist</span>
+					<span>Attendance</span>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a aria-current='{segment === "cancellation" ? "page" : undefined}' href='cancellation'>
+				<div class="flex-container">
+					<i class="material-icons">cancel</i>
+					<span>Cancellation</span>
 				</div>
 			</a>
 		</li>
