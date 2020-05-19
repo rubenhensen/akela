@@ -11,7 +11,7 @@ self.addEventListener('install', event => {
 	event.waitUntil(
 		caches
 			.open(ASSETS)
-			.then(cache => cache.addAll(to_cache))
+			// .then(cache => cache.addAll(to_cache))
 			.then(() => {
 				self.skipWaiting();
 			})
@@ -24,6 +24,7 @@ self.addEventListener('activate', event => {
 			// delete old caches
 			for (const key of keys) {
 				if (key !== ASSETS) await caches.delete(key);
+				if (key === ASSETS) await caches.delete(key);
 			}
 
 			self.clients.claim();
