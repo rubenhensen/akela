@@ -1,9 +1,10 @@
 <script>
-    import { loggedIn } from '../stores.js';
-    import { goto } from '@sapper/app';
+    import {loggedIn} from '../stores.js';
+    import {goto} from '@sapper/app';
     import Textfield, {Input, Textarea} from '@smui/textfield';
     import Icon from '@smui/textfield/icon/index';
-    import Button, { Label } from '@smui/button';
+    import Button, {Label} from '@smui/button';
+
     let email = '';
     let password = '';
     let valueOutlinedB = '';
@@ -35,6 +36,7 @@
             throw new Error(login.errors.message);
         }
     }
+
     function handleSubmit() {
         let url = API_URL + '/api/auth/signin';
         let data = {
@@ -51,33 +53,36 @@
 
 <div class="center">
 
-<img alt='MBG logo' src='logozondertekst.svg'>
+    <img alt='MBG logo' src='logozondertekst.svg'>
     <h2>Sign in</h2>
-<form on:submit|preventDefault={handleSubmit}>
-    <div>
-        <Textfield variant="outlined" withLeadingIcon bind:value={email} label="E-mail" input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b">
-            <Icon class="material-icons">email</Icon>
-        </Textfield>
-<!--        <HelperText id="helper-text-outlined-b">Helper Text</HelperText>-->
-<!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
-    </div>
-    <div>
-        <Textfield variant="outlined" withLeadingIcon bind:value={password} label="Password" input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b" type="password">
-            <Icon class="material-icons">lock</Icon>
-        </Textfield>
-        <!--        <HelperText id="helper-text-outlined-b">Helper Text</HelperText>-->
-<!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
-    </div>
-    <div>
-        <Button type="submit" variant="raised"><Label>Log in</Label></Button>
-        <span>- or -</span>
-        <Button type="button" on:click={() => goto('/register')} ripple={false}><Label>Register</Label></Button>
-    </div>
-</form>
+    <form on:submit|preventDefault={handleSubmit}>
+        <div>
+            <Textfield variant="outlined" withLeadingIcon bind:value={email} label="E-mail"
+                       input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b">
+                <Icon class="material-icons">email</Icon>
+            </Textfield>
+            <!--        <HelperText id="helper-text-outlined-b">Helper Text</HelperText>-->
+            <!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
+        </div>
+        <div>
+            <Textfield variant="outlined" withLeadingIcon bind:value={password} label="Password"
+                       input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b"
+                       type="password">
+                <Icon class="material-icons">lock</Icon>
+            </Textfield>
+            <!--        <HelperText id="helper-text-outlined-b">Helper Text</HelperText>-->
+            <!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
+        </div>
+        <div>
+            <Button type="submit" variant="raised"><Label>Log in</Label></Button>
+            <span>- or -</span>
+            <Button type="button" on:click={() => goto('/register')} ripple={false}><Label>Register</Label></Button>
+        </div>
+    </form>
 </div>
 
 {#await promise}
-<!--<p>Loading...</p>-->
+    <!--<p>Loading...</p>-->
 {:catch error}
     <p style="color: red">{error}</p>
 {/await}
@@ -86,6 +91,7 @@
     h2 {
         text-align: center;
     }
+
     img {
         width: 70%;
         max-width: 400px;
@@ -98,7 +104,7 @@
     }
 
     form {
-         display: inline-block;
+        display: inline-block;
     }
 
     :global(.mdc-text-field) {

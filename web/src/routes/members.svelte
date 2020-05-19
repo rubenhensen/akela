@@ -1,6 +1,8 @@
 <script>
-    import { Button } from 'sveltestrap';
+    import {Button} from 'sveltestrap';
+
     let promise = getUsers();
+
     async function getUsers() {
         const res = await fetch(API_URL + '/api/users/all', {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -34,9 +36,10 @@
     <p>...waiting</p>
 {:then users}
     <ul class="list-group">
-    {#each users as { _id, name }, i}
-        <li class="list-group-item d-flex "><span class="align-self-center">{name}</span> {#if isUser(_id)} <Button type="button" class="btn-sm float-right ml-auto p-2" color="primary">edit</Button>{/if}</li>
-    {/each}
+        {#each users as { _id, name }, i}
+            <li class="list-group-item d-flex "><span class="align-self-center">{name}</span> {#if isUser(_id)}
+                <Button type="button" class="btn-sm float-right ml-auto p-2" color="primary">edit</Button>{/if}</li>
+        {/each}
     </ul>
 {:catch error}
     <p style="color: red">{error.message}</p>

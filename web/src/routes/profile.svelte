@@ -1,8 +1,10 @@
 <script>
     import Button, {Label} from '@smui/button';
-    import { loggedIn } from '../stores.js';
+    import {loggedIn} from '../stores.js';
+
     let buttonVariant = 'outlined';
     let promise = getData();
+
     async function getData() {
         // Default options are marked with *
         let res;
@@ -13,7 +15,7 @@
             credentials: 'include', // include, *same-origin, omit
             // headers: {
             //     'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
+            // 'Content-Type': 'application/x-www-form-urlencoded',
             // },
             redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
@@ -54,7 +56,7 @@
 
 <h2>Profile</h2>
 {#await promise}
-<p>Loading...</p>
+    <p>Loading...</p>
 {:then profile}
     <p>name: {profile.user.name}</p>
     <p>_id: {profile.user._id}</p>
@@ -68,7 +70,7 @@
 {/await}
 
 {#if $loggedIn}
-<Button variant={buttonVariant} on:click={logOut}>Logout</Button>
+    <Button variant={buttonVariant} on:click={logOut}>Logout</Button>
 {/if}
 
 <style>

@@ -1,7 +1,24 @@
 <svelte:head>
-	<title>About</title>
+    <title>About</title>
 </svelte:head>
 
-<h1>About this site</h1>
+<style>
+    .paper-container {
+        margin: .8em;
+    }
+</style>
 
-<p>This is the 'about' page. There's not much here.</p>
+<div>
+    <div class="paper-container">
+        <Paper class="paper-demo">
+            <Title>Paper</Title>
+            <Subtitle>This is a sheet of paper.</Subtitle>
+            <Content>Paper is used to build an elevated surface.</Content>
+        </Paper>
+    </div>
+</div>
+
+<script>
+    import Paper, {Title, Subtitle, Content} from '@smui/paper';
+
+</script>
