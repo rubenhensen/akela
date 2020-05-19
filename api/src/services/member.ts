@@ -1,16 +1,16 @@
 import {Service, Inject} from 'typedi';
 
 @Service()
-export default class UserService {
+export default class MemberService {
     constructor(
-        @Inject('userModel') private userModel: Models.UserModel,
+        @Inject('memberModel') private memberModel: Models.MemberModel,
         @Inject('logger') private logger
     ) {
     }
 
-    public async GetAllUsers(): Promise<{}> {
+    public async GetAllMembers(): Promise<{}> {
         try {
-            const allUsers = await this.userModel.find({});
+            const allUsers = await this.memberModel.find({});
 
             return allUsers;
         } catch (e) {
