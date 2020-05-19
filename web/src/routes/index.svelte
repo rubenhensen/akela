@@ -8,17 +8,17 @@
 
 <List class="demo-list" twoLine avatarList singleSelection bind:selectedIndex={selectionIndex}>
     <Subheader>Verwacht</Subheader>
-    {#each aangemeld.sort(sortByName) as item}
-        <Item on:SMUI:action={() => selectionTwoLine = item.name}
-              disabled={item.disabled} selected={selectionTwoLine === item.name}>
+    {#each members.sort(sortByName).filter(t => !t.present && !t.cancelled) as member (member.id_)}
+        <Item on:SMUI:action={() => member.present = !member.present}
+              selected={selectionTwoLine === member.name}>
             <Graphic
-                    style="background-image: url(https://via.placeholder.com/40x40.png?text={item.name.split(' ').map(val => val.substring(0, 1)).join('')});"/>
+                    style="background-image: url(https://via.placeholder.com/40x40.png?text={member.name.split(' ').map(val => val.substring(0, 1)).join('')});"/>
             <Text>
-                <PrimaryText>{item.name}</PrimaryText>
-                <SecondaryText>{item.description}</SecondaryText>
+                <PrimaryText>{member.name}</PrimaryText>
+                <SecondaryText>{member.role}</SecondaryText>
             </Text>
             <Meta>
-                <Checkbox bind:group={selectedCheckbox} value="{item.name}"/>
+                <Checkbox bind:group={selectedCheckbox} value="{member.name}"/>
             </Meta>
         </Item>
         <Separator/>
@@ -26,35 +26,33 @@
 </List>
 
 <List class="demo-list" twoLine avatarList singleSelection bind:selectedIndex={selectionIndex}>
-    <Subheader>Verwacht</Subheader>
-    {#each aanwezig.sort(sortByName) as item}
-        <Item on:SMUI:action={() => selectionTwoLine = item.name}
-              disabled={item.disabled} selected={selectionTwoLine === item.name}>
+    <Subheader>Aanwezig</Subheader>
+    {#each members.sort(sortByName).filter(t => t.present && !t.cancelled) as member (member.id_)}
+        <Item on:SMUI:action={() => member.present = !member.present} selected={selectionTwoLine === member.name}>
             <Graphic
-                    style="background-image: url(https://via.placeholder.com/40x40.png?text={item.name.split(' ').map(val => val.substring(0, 1)).join('')});"/>
+                    style="background-image: url(https://via.placeholder.com/40x40.png?text={member.name.split(' ').map(val => val.substring(0, 1)).join('')});"/>
             <Text>
-                <PrimaryText>{item.name}</PrimaryText>
-                <SecondaryText>{item.description}</SecondaryText>
+                <PrimaryText>{member.name}</PrimaryText>
+                <SecondaryText>{member.role}</SecondaryText>
             </Text>
             <Meta>
-                <Checkbox bind:group={selectedCheckbox} value="{item.name}"/>
+                <Checkbox  group={member.name} value="{member.name}"/>
             </Meta>
         </Item>
         <Separator/>
     {/each}
-
 </List>
 
 <List class="demo-list" twoLine avatarList singleSelection bind:selectedIndex={selectionIndex}>
     <Subheader>Afgemeld</Subheader>
-    {#each afgemeld.sort(sortByName) as item}
-        <Item on:SMUI:action={() => selectionTwoLine = item.name}
-              disabled={item.disabled} selected={selectionTwoLine === item.name}>
+    {#each members.sort(sortByName).filter(t => t.cancelled) as member (member.id_)}
+        <Item on:SMUI:action={() => selectionTwoLine = member.name}
+              disabled={member.cancelled}>
             <Graphic
-                    style="background-image: url(https://via.placeholder.com/40x40.png?text={item.name.split(' ').map(val => val.substring(0, 1)).join('')});"/>
+                    style="background-image: url(https://via.placeholder.com/40x40.png?text={member.name.split(' ').map(val => val.substring(0, 1)).join('')});"/>
             <Text>
-                <PrimaryText>{item.name}</PrimaryText>
-                <SecondaryText>{item.description}</SecondaryText>
+                <PrimaryText>{member.name}</PrimaryText>
+                <SecondaryText>{member.role}</SecondaryText>
             </Text>
             <!--			<Meta class="material-icons">info</Meta>-->
         </Item>
@@ -84,74 +82,129 @@
 
     let clickedSimple = 'nothing yet';
     let clickedDense = 'nothing yet';
-    let aangemeld = [
+    let members = [
         {
-            name: 'Bruce Willis',
-            description: 'Scout',
-            disabled: false
+            id_: 1,
+            name: 'Clark Kent 1',
+            role: 'Scout',
+            archived: false,
+            cancelled: false,
+            present: false,
         },
         {
-            name: 'Austin Powers',
-            description: 'Scout',
-            disabled: false
+            id_: 2,
+            name: 'Clark Kent 2',
+            role: 'Scout',
+            archived: false,
+            cancelled: false,
+            present: false,
         },
         {
-            name: 'Thomas Edison',
-            description: 'Scout',
-            disabled: false
+            id_: 3,
+            name: 'Clark Kent 3',
+            role: 'Scout',
+            archived: false,
+            cancelled: false,
+            present: false,
         },
         {
-            name: 'Stephen Hawking',
-            description: 'Leiding',
-            disabled: false
-        }
+            id_: 4,
+            name: 'Clark Kent 4',
+            role: 'Scout',
+            archived: false,
+            cancelled: false,
+            present: false,
+        },
+        {
+            id_: 5,
+            name: 'Clark Kent 5',
+            role: 'Scout',
+            archived: false,
+            cancelled: false,
+            present: false,
+        },
+        {
+            id_: 6,
+            name: 'Clark Kent 6',
+            role: 'Scout',
+            archived: false,
+            cancelled: false,
+            present: true,
+        },
+        {
+            id_: 7,
+            name: 'Clark Kent 7',
+            role: 'Scout',
+            archived: false,
+            cancelled: false,
+            present: true,
+        },
+        {
+            id_: 8,
+            name: 'Clark Kent 8',
+            role: 'Scout',
+            archived: false,
+            cancelled: false,
+            present: true,
+        },
+        {
+            id_: 9,
+            name: 'Clark Kent 9',
+            role: 'Scout',
+            archived: false,
+            cancelled: false,
+            present: true,
+        },
+        {
+            id_: 10,
+            name: 'Clark Kent 10',
+            role: 'Scout',
+            archived: false,
+            cancelled: false,
+            present: true,
+        },
+        {
+            id_: 11,
+            name: 'Clark Kent 11',
+            role: 'Scout',
+            archived: false,
+            cancelled: true,
+            present: false,
+        },
+        {
+            id_: 12,
+            name: 'Clark Kent 12',
+            role: 'Scout',
+            archived: false,
+            cancelled: true,
+            present: false,
+        },
+        {
+            id_: 13,
+            name: 'Clark Kent 13',
+            role: 'Scout',
+            archived: false,
+            cancelled: true,
+            present: false,
+        },
+        {
+            id_: 14,
+            name: 'Clark Kent 14',
+            role: 'Scout',
+            archived: false,
+            cancelled: true,
+            present: false,
+        },
+        {
+            id_: 15,
+            name: 'Clark Kent 15',
+            role: 'Scout',
+            archived: false,
+            cancelled: true,
+            present: false,
+        },
     ];
 
-    let aanwezig = [
-        {
-            name: 'Batman',
-            description: 'Scout',
-            disabled: false
-        },
-        {
-            name: 'Superman',
-            description: 'Scout',
-            disabled: false
-        },
-        {
-            name: 'Spiderman',
-            description: 'Scout',
-            disabled: false
-        },
-        {
-            name: 'The Joker',
-            description: 'Leiding',
-            disabled: false
-        }
-    ];
-
-    let afgemeld = [
-        {
-            name: 'Tom Holland',
-            description: 'Scout',
-            disabled: true
-        },
-        {
-            name: 'John Cena',
-            description: 'Scout',
-            disabled: true
-        },
-        {
-            name: 'Tim Hoffman',
-            description: 'Scout',
-            disabled: true
-        },
-        {
-            name: 'Clark Kent',
-            description: 'Scout',
-            disabled: true
-        }
-    ];
     let selectionTwoLine = '';
     // This value is updated when the component is initialized, based on the
     // selected Item's `selected` prop.
