@@ -4,7 +4,7 @@
 start: ## Create and start development containers
 	@echo "Starting development environment"
 	@docker-compose -f docker-compose.yml up -d
-	@/opt/google/chrome/chrome http://localhost:5000 http://localhost:8081 --guest
+	@#/opt/google/chrome/chrome http://localhost:5000 http://localhost:8081 --guest
 
 
 build: ## Rebuild development containers

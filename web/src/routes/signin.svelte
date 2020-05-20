@@ -1,9 +1,11 @@
 <script>
     import {loggedIn} from '../stores.js';
     import {goto} from '@sapper/app';
+
     import Textfield, {Input, Textarea} from '@smui/textfield';
     import Icon from '@smui/textfield/icon/index';
     import Button, {Label} from '@smui/button';
+    import {onMount} from "svelte";
 
     let email = '';
     let password = '';
@@ -12,6 +14,21 @@
     let selected;
     let promise;
     let clicked;
+
+    //todo remove
+    onMount(() => {
+        email = "karel@gmail.com";
+        password = "karel";
+        let url = API_URL + '/api/auth/signin';
+        let data = {
+            "email": email,
+            "password": password
+        };
+        promise = postData(url, data);
+        promise
+                .then(() => loggedIn.update(n => true))
+                .then(async () => await goto('/members'));
+    });
 
     async function postData(url = '', data = {}) {
         // Default options are marked with *

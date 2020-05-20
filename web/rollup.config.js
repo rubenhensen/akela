@@ -3,10 +3,12 @@ import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 import svelte from 'rollup-plugin-svelte';
+import path from "path";
 import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
+import alias from '@rollup/plugin-alias';
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -26,10 +28,10 @@ const postcssOptions = () => ({
 				includePaths: [
 					"./src/theme",
 					"./node_modules",
-					"./src/routes"
+					"./src/routes",
 					// This is only needed because we're using a local module. :-/
 					// Normally, you would not need this line.
-					// path.resolve(__dirname, "..", "node_modules")
+					path.resolve(__dirname, "..", "node_modules")
 				]
 			}
 		]
@@ -89,7 +91,8 @@ export default {
 		plugins: [
 			replace({
 				'process.browser': false,
-				'process.env.NODE_ENV': JSON.stringify(mode)
+				'process.env.NODE_ENV': JSON.stringify(mode),
+				'API_URL': apiUrl
 			}),
 			svelte({
 				generate: 'ssr',

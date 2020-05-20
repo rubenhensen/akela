@@ -3,6 +3,7 @@ import auth from './routes/auth';
 import user from './routes/user';
 import agendash from './routes/agendash';
 import continents from './routes/continents';
+import members from "./routes/members";
 
 // guaranteed to get dependencies
 export default () => {
@@ -11,6 +12,7 @@ export default () => {
     user(app);
     agendash(app);
     continents(app);
+    members(app);
 
     return app;
 };

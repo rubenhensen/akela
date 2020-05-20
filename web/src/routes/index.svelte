@@ -211,7 +211,7 @@
     let selectionIndex = null;
     let clickedGroup = 'nothing yet';
     let selectedRadio = 'Tom Hanks';
-    let selectedCheckbox = ['Batman', 'Superman', 'Spiderman', 'The Joker'];
+    let selectedCheckbox = [];
     // onMount(() => appBarTitle.update(t => pageTitle));
     // let pageTitle = 'Checklist';
     let clicked = 0;
