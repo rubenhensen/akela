@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import {IMember} from '../interfaces/IMember';
 
-const Member = new mongoose.Schema(
+export const MemberSchema = new mongoose.Schema(
     {
         name: {
             type: String,
@@ -17,4 +17,4 @@ const Member = new mongoose.Schema(
     {timestamps: true},
 );
 
-export default mongoose.model <IMember & mongoose.Document>('Member', Member);
+export const MemberModel = mongoose.model <IMember & mongoose.Document>('Member', MemberSchema);

@@ -15,7 +15,7 @@
     let promise;
     let clicked;
 
-    //todo remove
+    // //todo remove
     onMount(() => {
         email = "karel@gmail.com";
         password = "karel";
@@ -27,7 +27,7 @@
         promise = postData(url, data);
         promise
                 .then(() => loggedIn.update(n => true))
-                .then(async () => await goto('/members'));
+                .then(async () => await goto('/'));
     });
 
     async function postData(url = '', data = {}) {

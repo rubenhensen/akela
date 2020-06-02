@@ -15,7 +15,6 @@ export default (app: Router) => {
     route.get('',
         middlewares.isAuth,
         (req: Request, res: Response) => {
-            console.log("ets2t");
             const memberServiceInstance = Container.get(MemberService);
             memberServiceInstance.GetAllMembers().then((members) => res.json(members).status(200));
 

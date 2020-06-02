@@ -5,6 +5,8 @@ import jobsLoader from './jobs';
 import Logger from './logger';
 // We have to import at least all the events once so they can be triggered
 import './events';
+import {PresenceModel} from '../models/presence'
+import {MemberModel} from "../models/member";
 
 export default async ({expressApp}) => {
     const mongoConnection = await mongooseLoader();
@@ -26,7 +28,13 @@ export default async ({expressApp}) => {
     const memberModel = {
         name: 'memberModel',
         // Notice the require syntax and the '.default'
-        model: require('../models/member').default,
+        model: MemberModel
+    };
+
+    const presenceModel = {
+        name: 'presenceModel',
+        // Notice the require syntax and the '.default'
+        model: PresenceModel
     };
 
     // It returns the agenda instance because it's needed in the subsequent loaders
@@ -34,7 +42,8 @@ export default async ({expressApp}) => {
         mongoConnection,
         models: [
             userModel,
-            memberModel
+            memberModel,
+            presenceModel
             // salaryModel,
             // whateverModel
         ],

@@ -77,6 +77,11 @@
 
     function handleSubmit() {
         let url = API_URL + `/api/members/${_id}`;
+        let data = {
+            name,
+            role,
+            _id
+        }
         postData(url, data);
     }
 
@@ -86,9 +91,9 @@
     }
 </script>
 
-<p>Name: {name}</p>
-<p>Role: {role}</p>
-<p>_id: {_id}</p>
+<!--<p>Name: {name}</p>-->
+<!--<p>Role: {role}</p>-->
+<!--<p>_id: {_id}</p>-->
 
 
 

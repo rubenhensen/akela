@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import routes from '../api';
 import config from '../config';
+import Logger from './logger';
 
 export default ({app}: { app: express.Application }) => {
     /**
@@ -50,6 +51,7 @@ export default ({app}: { app: express.Application }) => {
 
     // / catch 404 and forward to error handler
     app.use((req, res, next) => {
+        Logger.error("Route not found error");
         const err = new Error('Not Found');
         res.status(404);
         next(err);
@@ -61,6 +63,7 @@ export default ({app}: { app: express.Application }) => {
          * Handle 401 thrown by express-jwt library
          */
         if (err.name === 'UnauthorizedError') {
+            Logger.error("Route unauthorized error");
             return res
                 .status(err.status)
                 .send({message: err.message})
@@ -69,6 +72,7 @@ export default ({app}: { app: express.Application }) => {
         return next(err);
     });
     app.use((err, req, res, next) => {
+        Logger.error("Route internal server error");
         res.status(err.status || 500);
         res.json({
             "errors": {

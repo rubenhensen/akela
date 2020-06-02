@@ -5,17 +5,17 @@
 
     const {page} = stores();
 
-    page.subscribe(({path, params, query}) => {
-        if (process.browser) {
-            if (!$loggedIn && (path !== '/signin' && path !== '/register')) {
-                redirectToLogin()
-            }
-        }
-    });
-
-    async function redirectToLogin() {
-        await goto('/signin');
-    }
+    // page.subscribe(({path, params, query}) => {
+    //     if (process.browser) {
+    //         if (!$loggedIn && (path !== '/signin' && path !== '/register')) {
+    //             redirectToLogin()
+    //         }
+    //     }
+    // });
+    //
+    // async function redirectToLogin() {
+    //     await goto('/signin');
+    // }
 </script>
 
 <style>
