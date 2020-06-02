@@ -1,10 +1,8 @@
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
-import postcss from 'rollup-plugin-postcss';
 import svelte from 'rollup-plugin-svelte';
-import path from "path";
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
@@ -12,30 +10,8 @@ import pkg from './package.json';
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
-const apiUrl = !dev ? '"https://akela-backend.herokuapp.com"' : '"http://localhost:3000"';
 
 const onwarn = (warning, onwarn) => (warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) || onwarn(warning);
-
-const postcssOptions = () => ({
-	extensions: [".scss", ".sass"],
-	extract: false,
-	minimize: true,
-	use: [
-		[
-			"sass",
-			{
-				includePaths: [
-					"./src/theme",
-					"./node_modules",
-					"./src/routes",
-					// This is only needed because we're using a local module. :-/
-					// Normally, you would not need this line.
-					path.resolve(__dirname, "..", "node_modules")
-				]
-			}
-		]
-	]
-});
 
 export default {
 	client: {
@@ -44,8 +20,7 @@ export default {
 		plugins: [
 			replace({
 				'process.browser': true,
-				'process.env.NODE_ENV': JSON.stringify(mode),
-				'API_URL': apiUrl
+				'process.env.NODE_ENV': JSON.stringify(mode)
 			}),
 			svelte({
 				dev,
@@ -57,11 +32,10 @@ export default {
 				dedupe: ['svelte']
 			}),
 			commonjs(),
-			postcss(postcssOptions()),
 
 			legacy && babel({
 				extensions: ['.js', '.mjs', '.html', '.svelte'],
-				runtimeHelpers: true,
+				babelHelpers: 'runtime',
 				exclude: ['node_modules/@babel/**'],
 				presets: [
 					['@babel/preset-env', {
@@ -81,6 +55,7 @@ export default {
 			})
 		],
 
+		preserveEntrySignatures: false,
 		onwarn,
 	},
 
@@ -90,8 +65,7 @@ export default {
 		plugins: [
 			replace({
 				'process.browser': false,
-				'process.env.NODE_ENV': JSON.stringify(mode),
-				'API_URL': apiUrl
+				'process.env.NODE_ENV': JSON.stringify(mode)
 			}),
 			svelte({
 				generate: 'ssr',
@@ -100,13 +74,13 @@ export default {
 			resolve({
 				dedupe: ['svelte']
 			}),
-			commonjs(),
-			postcss(postcssOptions()),
+			commonjs()
 		],
 		external: Object.keys(pkg.dependencies).concat(
 			require('module').builtinModules || Object.keys(process.binding('natives'))
 		),
 
+		preserveEntrySignatures: 'strict',
 		onwarn,
 	},
 
@@ -123,6 +97,7 @@ export default {
 			!dev && terser()
 		],
 
+		preserveEntrySignatures: false,
 		onwarn,
 	}
 };
