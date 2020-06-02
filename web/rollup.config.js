@@ -1,3 +1,5 @@
+import path from "path";
+import alias from "@rollup/plugin-alias";
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
@@ -6,21 +8,64 @@ import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
+import postcss from "rollup-plugin-postcss";
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
+const apiUrl = !dev ? '"https://akela-backend.herokuapp.com"' : '"http://localhost:3000"';
 
 const onwarn = (warning, onwarn) => (warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) || onwarn(warning);
+const aliases = () => ({
+	resolve: [".svelte", ".js", ".scss", ".css"],
+	entries: [
+		{
+			find: /^@smui\/([^\/]+)$/,
+			replacement: path.resolve(
+				__dirname,
+				"node_modules",
+				"@smui",
+				"$1",
+				"index.js"
+			)
+		},
+		{
+			find: /^@smui\/([^\/]+)\/(.*)$/,
+
+			replacement: path.resolve(__dirname, "node_modules", "@smui", "$1", "$2")
+		}
+	]
+});
+const postcssOptions = () => ({
+	extensions: [".scss", ".sass"],
+	extract: false,
+	minimize: true,
+	use: [
+		[
+			"sass",
+			{
+				includePaths: [
+					"./src/theme",
+					"./node_modules",
+					// This is only needed because we're using a local module. :-/
+					// Normally, you would not need this line.
+					path.resolve(__dirname, "..", "node_modules")
+				]
+			}
+		]
+	]
+});
 
 export default {
 	client: {
 		input: config.client.input(),
 		output: config.client.output(),
 		plugins: [
+			alias(aliases()),
 			replace({
 				'process.browser': true,
-				'process.env.NODE_ENV': JSON.stringify(mode)
+				'process.env.NODE_ENV': JSON.stringify(mode),
+				'API_URL': apiUrl
 			}),
 			svelte({
 				dev,
@@ -32,6 +77,7 @@ export default {
 				dedupe: ['svelte']
 			}),
 			commonjs(),
+            postcss(postcssOptions()),
 
 			legacy && babel({
 				extensions: ['.js', '.mjs', '.html', '.svelte'],
@@ -74,7 +120,8 @@ export default {
 			resolve({
 				dedupe: ['svelte']
 			}),
-			commonjs()
+			commonjs(),
+			postcss(postcssOptions()),
 		],
 		external: Object.keys(pkg.dependencies).concat(
 			require('module').builtinModules || Object.keys(process.binding('natives'))
