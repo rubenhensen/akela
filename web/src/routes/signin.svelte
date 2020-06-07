@@ -16,19 +16,19 @@
     let clicked;
 
     // //todo remove
-    // onMount(() => {
-    //     email = "karel@gmail.com";
-    //     password = "karel";
-    //     let url = API_URL + '/api/auth/signin';
-    //     let data = {
-    //         "email": email,
-    //         "password": password
-    //     };
-    //     promise = postData(url, data);
-    //     promise
-    //             .then(() => loggedIn.update(n => true))
-    //             .then(async () => await goto('/'));
-    // });
+    onMount(() => {
+        email = "karel@gmail.com";
+        password = "karel";
+        let url = API_URL + '/api/auth/signin';
+        let data = {
+            "email": email,
+            "password": password
+        };
+        promise = postData(url, data);
+        promise
+                .then(() => loggedIn.update(n => true))
+                .then(async () => await goto('/'));
+    });
 
     async function postData(url = '', data = {}) {
         // Default options are marked with *

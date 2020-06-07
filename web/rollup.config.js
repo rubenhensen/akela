@@ -13,7 +13,7 @@ import postcss from "rollup-plugin-postcss";
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
-const apiUrl = !dev ? '"https://akela-backend.herokuapp.com"' : '"http://localhost:3000"';
+const apiUrl = !dev ? '"https://akela-backend.herokuapp.com"' : '"http://localhost:4000"';
 
 const onwarn = (warning, onwarn) => (warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) || onwarn(warning);
 const aliases = () => ({
@@ -111,7 +111,8 @@ export default {
 		plugins: [
 			replace({
 				'process.browser': false,
-				'process.env.NODE_ENV': JSON.stringify(mode)
+				'process.env.NODE_ENV': JSON.stringify(mode),
+				'API_URL': apiUrl
 			}),
 			svelte({
 				generate: 'ssr',

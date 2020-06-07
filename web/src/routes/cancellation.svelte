@@ -81,11 +81,10 @@
 
 <script>
     export let members;
-    export let presence;
+    export let presence = [];
     import Button, {Icon} from '@smui/button';
     import {appBarTitle} from '../stores';
     import {onMount} from 'svelte';
-    import LoremIpsum from "../components/LoremIpsum.svelte";
     import List, {
         Group,
         Item,
@@ -101,6 +100,11 @@
     import Radio from '@smui/radio';
     import Checkbox from '@smui/checkbox';
 
+    onMount(() => {
+    	let presenceMembers2 = presence.map(val => val.member);
+    	let presenceMembers = test.map(val => val);
+    	console.log(presenceMembers2);
+    });
     let clickedSimple = 'nothing yet';
     let clickedDense = 'nothing yet';
     let aangemeld = [
@@ -202,10 +206,7 @@
             },
             present: false,
         }];
-    let presenceMembers = test.map(val => val);
     // console.log(presence);
     // if (presence !== undefined) {
-    let presenceMembers2 = presence.map(val => val.member);
-    console.log(presenceMembers2);
     // }
 </script>

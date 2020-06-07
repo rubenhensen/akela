@@ -3,30 +3,26 @@
 
 start: ## Create and start development containers
 	@echo "Starting development environment"
-	@docker-compose -f docker-compose.yml up -d
-	@#/opt/google/chrome/chrome http://localhost:5000 http://localhost:8081 --guest
+	@make web-start
 
-
-build: ## Rebuild development containers
-	@echo "Rebuilding development containers"
-	@docker-compose build
+init: ## Setup dev environment
+	@echo "Initializing dev environment"
+	@docker build ./db/ -t rubenhensen/db:latest
+	@docker create --publish 27017:27017 --name akela_db \
+    -e MONGO_INITDB_ROOT_USERNAME=mongoadmin \
+    -e MONGO_INITDB_ROOT_PASSWORD=secret \
+    rubenhensen/db:latest
+	@cd web; npm install
+	@cd api; npm install
+#	@cp .env.sample .env
 
 stop: ## Stop development containers
 	@echo "Stopping development environment"
-	@docker-compose -f docker-compose.yml down
+	@docker stop akela_db
 
 restart: ## Stop and restart development containers
 	@make stop
 	@make start
-
-api: ## stream stdout api container
-	@docker logs -f akela_api_1
-
-web: ## stream stdout web container
-	@docker logs -f akela_web_1
-
-db: ## stream stdout db container
-	@docker logs -f akela_db_1
 
 test: ## run tests on all containers
 	@npm test --prefix ./api
@@ -34,10 +30,11 @@ test: ## run tests on all containers
 
 debug: ## Stop, rebuild and start development containers
 	@echo "Stop, rebuild and start development environment"
-	@docker-compose -f docker-compose.yml down
+	@docker stop akela_db || true
 	@docker system prune -f	
-	@docker-compose build
-	@docker-compose -f docker-compose.yml up -d
+	@if [ -d "web/src/node_module" ]; then sudo rm -r web/src/node_modules; fi
+	@if [ -d "web/node_module" ]; then sudo rm -r web/node_modules; fi
+	@if [ -d "web/__sapper__" ]; then sudo rm -r web/__sapper__; fi
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -87,6 +84,14 @@ heroku.push.db:
 	@heroku container:release web
 
 
+db-start: ## Start mongodb container
+	@docker start akela_db
+
+web-start: api-start ## Start frontend
+	@gnome-terminal -- sh -c "cd web; npm run dev; bash"
+
+api-start: db-start ## Start api
+	@gnome-terminal -- sh -c "cd api; npm start; bash"
 
 
 
