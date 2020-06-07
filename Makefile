@@ -7,8 +7,9 @@ start: ## Create and start development containers
 
 init: ## Setup dev environment
 	@echo "Initializing dev environment"
+	@docker network create --driver bridge akela-net 
 	@docker build ./db/ -t rubenhensen/db:latest
-	@docker create --publish 27017:27017 --name akela_db \
+	@docker create --network akela-net --publish 27017:27017 --name akela_db \
     -e MONGO_INITDB_ROOT_USERNAME=mongoadmin \
     -e MONGO_INITDB_ROOT_PASSWORD=secret \
     rubenhensen/db:latest
@@ -31,10 +32,13 @@ test: ## run tests on all containers
 debug: ## Stop, rebuild and start development containers
 	@echo "Stop, rebuild and start development environment"
 	@docker stop akela_db || true
+	@docker stop express || true 
 	@docker system prune -f	
 	@if [ -d "web/src/node_module" ]; then sudo rm -r web/src/node_modules; fi
 	@if [ -d "web/node_module" ]; then sudo rm -r web/node_modules; fi
 	@if [ -d "web/__sapper__" ]; then sudo rm -r web/__sapper__; fi
+	@make init
+	@make start
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -90,10 +94,11 @@ db-start: ## Start mongodb container
 web-start: api-start ## Start frontend
 	@gnome-terminal -- sh -c "cd web; npm run dev; bash"
 
-api-start: db-start ## Start api
+api-start: express-start ## Start api
 	@gnome-terminal -- sh -c "cd api; npm start; bash"
 
-
+express-start: db-start ## Start mongo-express
+	@docker run --name express -d --network akela-net -e ME_CONFIG_MONGODB_SERVER=akela_db -e ME_CONFIG_MONGODB_ADMINUSERNAME=mongoadmin -e ME_CONFIG_MONGODB_ADMINPASSWORD=secret -p 8081:8081 mongo-express
 
 
 

@@ -1,18 +1,5 @@
 <script context="module">
     export async function preload({params, query}) {
-
-        // export async function preload({ params, query }) {
-        //     // the `slug` parameter is available because
-        //     // this file is called [slug].svelte
-        //     const res = await this.fetch(`blog/${params.slug}.json`);
-        //     const data = await res.json();
-        //
-        //     if (res.status === 200) {
-        //         return { post: data };
-        //     } else {
-        //         this.error(res.status, data.message);
-        //     }
-        // }
         const res = await this.fetch(API_URL + '/api/members', {
                 method: 'GET', // *GET, POST, PUT, DELETE, etc.
                 mode: 'cors', // no-cors, *cors, same-origin
@@ -77,7 +64,6 @@
 
 {#if members}
     <List class="demo-list" twoLine avatarList singleSelection bind:selectedIndex={selectionIndex}>
-        <Subheader>Verwacht</Subheader>
         {#each members.sort(sortByName).filter(t => !t.present && !t.cancelled) as member (member._id)}
             <Item>
                 <Graphic
@@ -103,8 +89,4 @@
 
 
 <style>
-
-    li {
-        font-size: 1.3rem;
-    }
 </style>

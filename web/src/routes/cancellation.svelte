@@ -30,8 +30,6 @@
             // body: JSON.stringify(data) // body data type must match "Content-Type" header
         });
         const presence = await res2.json();
-        // console.log(members);
-        // console.log(presence)
         return {members, presence}
     }
 </script>
@@ -101,9 +99,14 @@
     import Checkbox from '@smui/checkbox';
 
     onMount(() => {
-    	let presenceMembers2 = presence.map(val => val.member);
-    	let presenceMembers = test.map(val => val);
-    	console.log(presenceMembers2);
+	    console.log("Members: ");
+	    console.log(members);
+	    console.log("Presence: ");
+	    console.log(presence);
+	    let presenceMembers = presence.map(val => val.member);
+	    console.log(presenceMembers);
+
+	    //array! = array1.filte(val => !array2.includes(val));
     });
     let clickedSimple = 'nothing yet';
     let clickedDense = 'nothing yet';
