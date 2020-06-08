@@ -47,10 +47,10 @@ export default class PresenceService {
     //     }
     // }
     //
-    public async UpdateMember(presenceId: any, presence: any) {
+    public async UpdatePresence(presenceId: any, presence: any) {
         try {
             this.logger.silly(`Searching user with id: ${presenceId}`);
-            const presenceRecord = await this.memberModel.findOneAndUpdate({_id: presenceId}, presence);
+            const presenceRecord = await this.presenceModel.findOneAndUpdate({_id: presenceId}, presence);
             this.logger.silly(`Presence updated ${presenceRecord}`);
             return presenceRecord;
         } catch (e) {

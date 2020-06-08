@@ -31,6 +31,7 @@
         });
         const presence = await res2.json();
 
+
 	    let presenceMembers = presence.map(val => val.member);
 	    let diff = members.filter(({ _id: id1 }) => 
 		    !presenceMembers.some(({ _id: id2 }) => id2 === id1));
@@ -60,6 +61,7 @@
             credentials: 'include', // include, *same-origin, omit
             // headers: {
             //     'Content-Type': 'application/json'
+	    
             // 'Content-Type': 'application/x-www-form-urlencoded',
             // },
             redirect: 'follow', // manual, *follow, error
@@ -84,6 +86,7 @@
     <Subheader>Verwacht</Subheader>
 	    {#each newPresence.sort(sortByName).filter(t => !t.cancelled) as item}
 		    <Item on:SMUI:action={() => {
+	    item.cancelled = true;
 	    updatePresence(item); 
 	    selectionTwoLine = item.member.name}}
               selected={selectionTwoLine === item.member.name}>
@@ -156,9 +159,7 @@
 
     async function updatePresence(item) {
 	    let {_id} = item;
-	    let data = {_id: _id};
-
-        const res1 = await fetch(API_URL + '/api/members', {
+        const res1 = await fetch(API_URL + '/api/presence/' + _id, {
             method: 'PUT', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -169,10 +170,9 @@
             },
             redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-		body: JSON.stringify(data) // body data type must match "Content-Type" header
+		body: JSON.stringify(item) // body data type must match "Content-Type" header
         });
         const members = await res1.json();
-	    console.log(members)
     }
 
     function sortByName(a, b) {
