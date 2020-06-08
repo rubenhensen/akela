@@ -1,6 +1,7 @@
 <script>
-    import Button, {Label} from '@smui/button';
     import {loggedIn} from '../stores.js';
+    import Paper, {Title, Subtitle, Content} from '@smui/paper';
+    import Button, {Group, GroupItem, Label, Icon} from '@smui/button';
 
     let buttonVariant = 'outlined';
     let promise = getData();
@@ -52,26 +53,36 @@
             throw new Error(profile.message);
         }
     }
+
 </script>
 
-<h2>Profile</h2>
 {#await promise}
     <p>Loading...</p>
 {:then profile}
-    <p>name: {profile.user.name}</p>
-    <p>_id: {profile.user._id}</p>
-    <p>role: {profile.user.role}</p>
-    <p>email: {profile.user.email}</p>
-    <p>createdAt: {profile.user.createdAt}</p>
-    <p>__v: {profile.user.__v}</p>
-    <p>token: {profile.token}</p>
+<div>
+    <div class="paper-container">
+        <Paper class="paper-demo">
+		<Title>Naam: {profile.user.name}</Title>
+			<Subtitle>Rol: {profile.user.role}</Subtitle>
+            <!--<Content>We gaan een tafel pionieren om te trainen voor RSW. Als de tafels gebouwd zijn hebben we wat
+                pannenkoekenbeslag en kan iedereen even wat bakken. Daarna afbreken, opruimen en afsluiten.
+		                <Button>Volledige programma bekijken</Button>
+	    </Content>-->
+
+{#if $loggedIn}
+	<!--    <Button variant={buttonVariant} on:click={logOut}>Logout</Button>-->
+{/if}
+        </Paper>
+    </div>
+</div>
+
 {:catch error}
     <p style="color: red">{error.message}</p>
 {/await}
 
-{#if $loggedIn}
-    <Button variant={buttonVariant} on:click={logOut}>Logout</Button>
-{/if}
 
 <style>
+    .paper-container {
+        margin: .8em;
+    }
 </style>
