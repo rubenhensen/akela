@@ -30,7 +30,46 @@
             // body: JSON.stringify(data) // body data type must match "Content-Type" header
         });
         const presence = await res2.json();
-        return {members, presence}
+
+	    let presenceMembers = presence.map(val => val.member);
+	    let diff = members.filter(({ _id: id1 }) => 
+		    !presenceMembers.some(({ _id: id2 }) => id2 === id1));
+	    diff = diff.map(val => {
+		    return {member: val}});
+	    diff.forEach(val => val.archived = false);
+	    diff.forEach(val => val.cancelled = false);
+	    diff.forEach(val => val.present = false);
+	    let counter = diff.length;
+	    for await (let data of diff) {
+        const res3 = await this.fetch(API_URL + '/api/presence', {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'include', // include, *same-origin, omit
+            headers: {
+            	'Content-Type': 'application/json'
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(data) // body data type must match "Content-Type" header
+	});}
+        const res4 = await this.fetch(API_URL + '/api/members', {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'include', // include, *same-origin, omit
+            // headers: {
+            //     'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+            // },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            // body: JSON.stringify(data) // body data type must match "Content-Type" header
+        });
+	const newPresence = await res4.json();
+
+        return {newPresence}
+	    
     }
 </script>
 
@@ -43,9 +82,9 @@
 
 <List class="demo-list" twoLine avatarList singleSelection bind:selectedIndex={selectionIndex}>
     <Subheader>Verwacht</Subheader>
-    {#each aangemeld.sort(sortByName) as item}
+    {#each newPresence.sort(sortByName) as item}
         <Item on:SMUI:action={() => selectionTwoLine = item.name}
-              disabled={item.disabled} selected={selectionTwoLine === item.name}>
+              selected={selectionTwoLine === item.name}>
             <Graphic
                     style="background-image: url(https://via.placeholder.com/40x40.png?text={item.name.split(' ').map(val => val.substring(0, 1)).join('')});"/>
             <Text>
@@ -64,7 +103,7 @@
     <Subheader>Afgemeld</Subheader>
     {#each afgemeld.sort(sortByName) as item}
         <Item on:SMUI:action={() => selectionTwoLine = item.name}
-              disabled={item.disabled} selected={selectionTwoLine === item.name}>
+              selected={selectionTwoLine === item.name}>
             <Graphic
                     style="background-image: url(https://via.placeholder.com/40x40.png?text={item.name.split(' ').map(val => val.substring(0, 1)).join('')});"/>
             <Text>
@@ -78,8 +117,7 @@
 
 
 <script>
-    export let members;
-    export let presence = [];
+    export let newPresence = [];
     import Button, {Icon} from '@smui/button';
     import {appBarTitle} from '../stores';
     import {onMount} from 'svelte';
@@ -99,60 +137,53 @@
     import Checkbox from '@smui/checkbox';
 
     onMount(() => {
-	    console.log("Members: ");
-	    console.log(members);
-	    console.log("Presence: ");
-	    console.log(presence);
-	    let presenceMembers = presence.map(val => val.member);
-	    console.log(presenceMembers);
-
-	    //array! = array1.filte(val => !array2.includes(val));
+	console.log(newPresence);
     });
     let clickedSimple = 'nothing yet';
     let clickedDense = 'nothing yet';
     let aangemeld = [
-        {
-            name: 'Bruce Willis',
-            description: 'Scout',
-            disabled: false
-        },
-        {
-            name: 'Austin Powers',
-            description: 'Scout',
-            disabled: false
-        },
-        {
-            name: 'Thomas Edison',
-            description: 'Scout',
-            disabled: false
-        },
-        {
-            name: 'Stephen Hawking',
-            description: 'Leiding',
-            disabled: false
-        }
+    //    {
+    //        name: 'Bruce Willis',
+    //        description: 'Scout',
+    //        disabled: false
+    //    },
+    //    {
+    //        name: 'Austin Powers',
+    //        description: 'Scout',
+    //        disabled: false
+    //    },
+    //    {
+    //        name: 'Thomas Edison',
+    //        description: 'Scout',
+    //        disabled: false
+    //    },
+    //    {
+    //        name: 'Stephen Hawking',
+    //        description: 'Leiding',
+    //        disabled: false
+    //    }
     ];
     let afgemeld = [
-        {
-            name: 'Tom Holland',
-            description: 'Scout',
-            disabled: true
-        },
-        {
-            name: 'John Cena',
-            description: 'Scout',
-            disabled: true
-        },
-        {
-            name: 'Tim Hoffman',
-            description: 'Scout',
-            disabled: true
-        },
-        {
-            name: 'Clark Kent',
-            description: 'Scout',
-            disabled: true
-        }
+    //    {
+    //        name: 'Tom Holland',
+    //        description: 'Scout',
+    //        disabled: true
+    //    },
+    //    {
+    //        name: 'John Cena',
+    //        description: 'Scout',
+    //        disabled: true
+    //    },
+    //    {
+    //        name: 'Tim Hoffman',
+    //        description: 'Scout',
+    //        disabled: true
+    //    },
+    //    {
+    //        name: 'Clark Kent',
+    //        description: 'Scout',
+    //        disabled: true
+    //    }
     ];
     let selectionTwoLine = '';
     // This value is updated when the component is initialized, based on the
@@ -161,8 +192,6 @@
     let clickedGroup = 'nothing yet';
     let selectedRadio = 'Tom Hanks';
     let selectedCheckbox = ['Tom Hanks'];
-    // onMount(() => appBarTitle.update(t => pageTitle));
-    // let pageTitle = 'Checklist';
     let clicked = 0;
 
     function sortByName(a, b) {
@@ -178,38 +207,4 @@
         // names must be equal
         return 0;
     }
-
-    // console.log(members);
-    // console.log(presence);
-    // console.log(typeof presence);
-    let test = [
-        {
-            archived: false,
-            cancelled: false,
-            createdAt: "2020-05-26T11:36:26.533Z",
-            member: {
-                role: "Scout",
-                _id: "5ec52a5cd32e59002868ffaf",
-                name: "Test5",
-                createdAt: "2020-05-20T13:02:20.278Z",
-                updatedAt: "2020-05-20T13:02:20.278Z",
-            },
-            present: false,
-        },
-        {
-            archived: false,
-            cancelled: true,
-            createdAt: "2020-05-26T11:37:55.260Z",
-            member: {
-                role: "Welp J.",
-                _id: "5ec52b250a280f00431a5fea",
-                name: "Test3",
-                createdAt: "2020-05-20T13:05:41.093Z",
-                updatedAt: "2020-05-20T13:05:41.093Z",
-            },
-            present: false,
-        }];
-    // console.log(presence);
-    // if (presence !== undefined) {
-    // }
 </script>

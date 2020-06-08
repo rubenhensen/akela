@@ -98,7 +98,7 @@ api-start: express-start ## Start api
 	@gnome-terminal -- sh -c "cd api; npm start; bash"
 
 express-start: db-start ## Start mongo-express
-	@docker run --name express -d --network akela-net -e ME_CONFIG_MONGODB_SERVER=akela_db -e ME_CONFIG_MONGODB_ADMINUSERNAME=mongoadmin -e ME_CONFIG_MONGODB_ADMINPASSWORD=secret -p 8081:8081 mongo-express
+	@docker run --name express -d --network akela-net -e ME_CONFIG_MONGODB_SERVER=akela_db -e ME_CONFIG_MONGODB_ADMINUSERNAME=mongoadmin -e ME_CONFIG_MONGODB_ADMINPASSWORD=secret -p 8081:8081 mongo-express || true
 
 
 
