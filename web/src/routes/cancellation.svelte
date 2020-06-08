@@ -106,7 +106,10 @@
 <List class="demo-list" twoLine avatarList singleSelection bind:selectedIndex={selectionIndex}>
     <Subheader>Verwacht</Subheader>
 	    {#each newPresence.sort(sortByName).filter(t => t.cancelled) as item}
-        <Item on:SMUI:action={() => selectionTwoLine = item.member.name}
+        <Item on:SMUI:action={() => {
+	    item.cancelled = false;
+	    updatePresence(item); 
+	    selectionTwoLine = item.member.name}}
 	      disabled selected={selectionTwoLine === item.member.name}>
             <Graphic
                     style="background-image: url(https://via.placeholder.com/40x40.png?text={item.member.name.split(' ').map(val => val.substring(0, 1)).join('')});"/>
@@ -143,9 +146,6 @@
     import Radio from '@smui/radio';
     import Checkbox from '@smui/checkbox';
 
-    onMount(() => {
-	console.log(newPresence);
-    });
     let clickedSimple = 'nothing yet';
     let clickedDense = 'nothing yet';
     let selectionTwoLine = '';
