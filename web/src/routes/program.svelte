@@ -15,7 +15,7 @@
             <Subtitle>Zaterdag 23 mei, 13:30 - 16:30</Subtitle>
             <Content>We gaan een tafel pionieren om te trainen voor RSW. Als de tafels gebouwd zijn hebben we wat
                 pannenkoekenbeslag en kan iedereen even wat bakken. Daarna afbreken, opruimen en afsluiten.
-                <Button>Volledige programma bekijken</Button>
+		<!--                <Button>Volledige programma bekijken</Button>-->
             </Content>
 
         </Paper>
