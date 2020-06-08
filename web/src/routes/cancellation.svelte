@@ -53,7 +53,7 @@
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
             body: JSON.stringify(data) // body data type must match "Content-Type" header
 	});}
-        const res4 = await this.fetch(API_URL + '/api/members', {
+        const res4 = await this.fetch(API_URL + '/api/presence', {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -82,39 +82,41 @@
 
 <List class="demo-list" twoLine avatarList singleSelection bind:selectedIndex={selectionIndex}>
     <Subheader>Verwacht</Subheader>
-    {#each newPresence.sort(sortByName) as item}
-        <Item on:SMUI:action={() => selectionTwoLine = item.name}
-              selected={selectionTwoLine === item.name}>
+	    {#each newPresence.sort(sortByName).filter(t => !t.cancelled) as item}
+        <Item on:SMUI:action={() => selectionTwoLine = item.member.name}
+              selected={selectionTwoLine === item.member.name}>
             <Graphic
-                    style="background-image: url(https://via.placeholder.com/40x40.png?text={item.name.split(' ').map(val => val.substring(0, 1)).join('')});"/>
+                    style="background-image: url(https://via.placeholder.com/40x40.png?text={item.member.name.split(' ').map(val => val.substring(0, 1)).join('')});"/>
             <Text>
-                <PrimaryText>{item.name}</PrimaryText>
-                <SecondaryText>{item.description}</SecondaryText>
+                <PrimaryText>{item.member.name}</PrimaryText>
+                <SecondaryText>{item.member.role}</SecondaryText>
             </Text>
             <Meta>
-                <Checkbox bind:group={selectedCheckbox} value="{item.name}"/>
+                <Checkbox bind:group={selectedCheckbox} value="{item.member.name}"/>
+            </Meta>
+        </Item>
+    {/each}
+    <Separator/>
+</List>
+<List class="demo-list" twoLine avatarList singleSelection bind:selectedIndex={selectionIndex}>
+    <Subheader>Verwacht</Subheader>
+	    {#each newPresence.sort(sortByName).filter(t => t.cancelled) as item}
+        <Item on:SMUI:action={() => selectionTwoLine = item.member.name}
+	      disabled selected={selectionTwoLine === item.member.name}>
+            <Graphic
+                    style="background-image: url(https://via.placeholder.com/40x40.png?text={item.member.name.split(' ').map(val => val.substring(0, 1)).join('')});"/>
+            <Text>
+                <PrimaryText>{item.member.name}</PrimaryText>
+                <SecondaryText>{item.member.role}</SecondaryText>
+            </Text>
+            <Meta>
+                <Checkbox bind:group={selectedCheckbox} value="{item.member.name}"/>
             </Meta>
         </Item>
     {/each}
     <Separator/>
 </List>
 <!--<Separator />-->
-<List class="demo-list" twoLine avatarList singleSelection bind:selectedIndex={selectionIndex}>
-    <Subheader>Afgemeld</Subheader>
-    {#each afgemeld.sort(sortByName) as item}
-        <Item on:SMUI:action={() => selectionTwoLine = item.name}
-              selected={selectionTwoLine === item.name}>
-            <Graphic
-                    style="background-image: url(https://via.placeholder.com/40x40.png?text={item.name.split(' ').map(val => val.substring(0, 1)).join('')});"/>
-            <Text>
-                <PrimaryText>{item.name}</PrimaryText>
-                <SecondaryText>{item.description}</SecondaryText>
-            </Text>
-            <!--			<Meta class="material-icons">info</Meta>-->
-        </Item>
-    {/each}
-</List>
-
 
 <script>
     export let newPresence = [];
@@ -141,50 +143,6 @@
     });
     let clickedSimple = 'nothing yet';
     let clickedDense = 'nothing yet';
-    let aangemeld = [
-    //    {
-    //        name: 'Bruce Willis',
-    //        description: 'Scout',
-    //        disabled: false
-    //    },
-    //    {
-    //        name: 'Austin Powers',
-    //        description: 'Scout',
-    //        disabled: false
-    //    },
-    //    {
-    //        name: 'Thomas Edison',
-    //        description: 'Scout',
-    //        disabled: false
-    //    },
-    //    {
-    //        name: 'Stephen Hawking',
-    //        description: 'Leiding',
-    //        disabled: false
-    //    }
-    ];
-    let afgemeld = [
-    //    {
-    //        name: 'Tom Holland',
-    //        description: 'Scout',
-    //        disabled: true
-    //    },
-    //    {
-    //        name: 'John Cena',
-    //        description: 'Scout',
-    //        disabled: true
-    //    },
-    //    {
-    //        name: 'Tim Hoffman',
-    //        description: 'Scout',
-    //        disabled: true
-    //    },
-    //    {
-    //        name: 'Clark Kent',
-    //        description: 'Scout',
-    //        disabled: true
-    //    }
-    ];
     let selectionTwoLine = '';
     // This value is updated when the component is initialized, based on the
     // selected Item's `selected` prop.
@@ -195,8 +153,8 @@
     let clicked = 0;
 
     function sortByName(a, b) {
-        let nameA = a.name.toUpperCase(); // ignore upper and lowercase
-        let nameB = b.name.toUpperCase(); // ignore upper and lowercase
+        let nameA = a.member.name.toUpperCase(); // ignore upper and lowercase
+        let nameB = b.member.name.toUpperCase(); // ignore upper and lowercase
         if (nameA < nameB) {
             return -1;
         }
