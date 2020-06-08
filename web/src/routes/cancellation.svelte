@@ -83,7 +83,9 @@
 <List class="demo-list" twoLine avatarList singleSelection bind:selectedIndex={selectionIndex}>
     <Subheader>Verwacht</Subheader>
 	    {#each newPresence.sort(sortByName).filter(t => !t.cancelled) as item}
-        <Item on:SMUI:action={() => selectionTwoLine = item.member.name}
+		    <Item on:SMUI:action={() => {
+	    updatePresence(item); 
+	    selectionTwoLine = item.member.name}}
               selected={selectionTwoLine === item.member.name}>
             <Graphic
                     style="background-image: url(https://via.placeholder.com/40x40.png?text={item.member.name.split(' ').map(val => val.substring(0, 1)).join('')});"/>
@@ -151,6 +153,27 @@
     let selectedRadio = 'Tom Hanks';
     let selectedCheckbox = ['Tom Hanks'];
     let clicked = 0;
+
+    async function updatePresence(item) {
+	    let {_id} = item;
+	    let data = {_id: _id};
+
+        const res1 = await fetch(API_URL + '/api/members', {
+            method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'include', // include, *same-origin, omit
+            headers: {
+              'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+		body: JSON.stringify(data) // body data type must match "Content-Type" header
+        });
+        const members = await res1.json();
+	    console.log(members)
+    }
 
     function sortByName(a, b) {
         let nameA = a.member.name.toUpperCase(); // ignore upper and lowercase
