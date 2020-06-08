@@ -47,18 +47,18 @@ export default class PresenceService {
     //     }
     // }
     //
-    // public async UpdateMember(memberId: any, name: any, role: any) {
-    //     try {
-    //         this.logger.silly(`Searching user with id: ${memberId}`);
-    //         const user = await this.memberModel.findOneAndUpdate({_id: memberId}, {name, role});
-    //         this.logger.silly(`User updated ${user}`);
-    //         return user;
-    //     } catch (e) {
-    //         this.logger.error(e);
-    //         throw e;
-    //     }
-    // }
-    //
+    public async UpdateMember(presenceId: any, presence: any) {
+        try {
+            this.logger.silly(`Searching user with id: ${presenceId}`);
+            const presenceRecord = await this.memberModel.findOneAndUpdate({_id: presenceId}, presence);
+            this.logger.silly(`Presence updated ${presenceRecord}`);
+            return presenceRecord;
+        } catch (e) {
+            this.logger.error(e);
+            throw e;
+        }
+    }
+    
     // public async RemoveMember(memberId: any) {
     //     try {
     //         this.logger.silly(`Searching user with id: ${memberId}`);
