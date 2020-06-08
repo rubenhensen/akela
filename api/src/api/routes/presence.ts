@@ -30,15 +30,15 @@ export default (app: Router) => {
     //             .then((member) => res.json(member).status(200));
     //     });
     //
-    // route.put('/:memberId',
-    //     middlewares.isAuth,
-    //     async (req: Request, res: Response) => {
-    //         const {memberId} = req.params;
-    //         const {name, role} = req.body;
-    //         const memberServiceInstance = Container.get(MemberService);
-    //         memberServiceInstance.UpdateMember(memberId, name, role)
-    //             .then((member) => res.json(member).status(200));
-    //     });
+     route.put('/:presenceId',
+         middlewares.isAuth,
+         async (req: Request, res: Response) => {
+             const {presenceId} = req.params;
+             const presence = req.body;
+             const presenceServiceInstance = Container.get(PresenceService);
+             presenceServiceInstance.UpdatePresence(presenceId, presence)
+                 .then((result) => res.json(result).status(200));
+         });
     //
     // route.delete('/:memberId',
     //     middlewares.isAuth,
