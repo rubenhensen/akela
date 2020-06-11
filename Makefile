@@ -89,10 +89,11 @@ heroku.push.db:
 
 
 db-start: ## Start mongodb container
-	@docker start akela_db
+	@sudo docker start akela_db
 
 web-start: api-start ## Start frontend
 	@gnome-terminal -- sh -c "cd web; npm run dev; bash"
+	@gnome-terminal -- sh -c "cd web; npm run unit-test:watch; bash"
 
 api-start: express-start ## Start api
 	@gnome-terminal -- sh -c "cd api; npm start; bash"

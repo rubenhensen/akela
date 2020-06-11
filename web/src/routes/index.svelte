@@ -82,7 +82,6 @@
 <svelte:head>
     <title>Akela</title>
 </svelte:head>
-
 <List class="demo-list" twoLine avatarList singleSelection bind:selectedIndex={selectionIndex}>
     <Subheader>Aangemeld</Subheader>
 	    {#each newPresence.sort(sortByName).filter(t => !t.cancelled && !t.present) as item}

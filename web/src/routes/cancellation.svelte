@@ -104,7 +104,7 @@
     <Separator/>
 </List>
 <List class="demo-list" twoLine avatarList singleSelection bind:selectedIndex={selectionIndex}>
-    <Subheader>Verwacht</Subheader>
+    <Subheader>Afgemeld</Subheader>
 	    {#each newPresence.sort(sortByName).filter(t => t.cancelled) as item}
         <Item on:SMUI:action={() => {
 	    item.cancelled = false;
