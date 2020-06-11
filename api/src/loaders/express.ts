@@ -46,6 +46,9 @@ export default ({app}: { app: express.Application }) => {
     // Middleware that enables the cookies of req.cookie
     app.use(cookieParser());
 
+    // Enable preflight
+    app.contains('*', cors());
+    
     // Load API routes
     app.use(config.api.prefix, routes());
 
