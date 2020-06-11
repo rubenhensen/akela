@@ -47,7 +47,7 @@ export default ({app}: { app: express.Application }) => {
     app.use(cookieParser());
 
     // Enable preflight
-    app.contains('*', cors());
+    app.options('*', cors());
     
     // Load API routes
     app.use(config.api.prefix, routes());
