@@ -15,7 +15,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     # Set staging configuration
     env:
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -52,11 +52,11 @@ jobs:
       run: make heroku.push.api
     - name: Install frontend
       run: npm install --prefix ./web
-    - name: Build frontend
-    - name: Cypress run
+    - name: Build and test frontend
       uses: cypress-io/github-action@v1
       with:
-        start: npm run build --prefix ./web
+        build: npm run build --prefix ./web 
+        start: npm start --prefix ./web
         config-file: web/cypress.json
     - name: Build frontend container
       run: docker build web/ -t akela_web:latest
