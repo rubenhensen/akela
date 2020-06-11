@@ -1,0 +1,29 @@
+{
+  "name": "akela",
+  "version": "0.0.1",
+  "description": "Presentie controle voor Scouting Nederland verenigingen",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rubenhensen/akela.git"
+  },
+  "keywords": [
+    "svelte",
+    "docker",
+    "sapper",
+    "mongodb",
+    "expressjs"
+  ],
+  "author": "Ruben Hensen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rubenhensen/akela/issues"
+  },
+  "homepage": "https://github.com/rubenhensen/akela#readme",
+  "devDependencies": {
+    "pre-commit": "^1.2.2"
+  }
+}
