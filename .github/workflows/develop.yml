@@ -34,22 +34,20 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-    - name: Run tests
-      run: make test
+    - name: Test backend
+      run: npm test --prefix ./api
+    - name: Build backend container
+      run: docker build api/ -t akela_api:latest  
       #    - name: Build containers
       #      run: make build
-      #    - name: Login to Heroku Container registry
-      #      env:
-      #        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      #      run: heroku container:login
-      #    - name: Push and release db Heroku Container registry
-      #      env:
-      #        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      #      run: make heroku.push.db
-      #    - name: Push and release api Heroku Container registry
-      #      env:
-      #        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      #      run: make heroku.push.api
+    - name: Login to Heroku Container registry
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login
+    - name: Push and release api Heroku Container registry
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: make heroku.push.api
       #    - name: Push and release web Heroku Container registry
       #      env:
       #        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}

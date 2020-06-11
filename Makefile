@@ -25,8 +25,16 @@ restart: ## Stop and restart development containers
 	@make stop
 	@make start
 
-test: ## run tests on all containers
+deploy.api: 
 	@npm test --prefix ./api
+	
+
+test: ## run tests on all containers
+	@sudo docker start akela_db
+	@npm test --prefix ./api
+	@npm run build --prefix ./api
+	@npm run start-build --prefix ./api
+	@npm test --prefix ./web
 
 
 debug: ## Stop, rebuild and start development containers
@@ -79,14 +87,6 @@ heroku.push.api:
 	@docker push registry.heroku.com/akela-backend/web
 	@heroku git:remote -a akela-backend
 	@heroku container:release web
-
-heroku.push.db:
-	@echo "tagging and pushing db"
-	@docker tag akela_db:latest registry.heroku.com/akela-db/web
-	@docker push registry.heroku.com/akela-db/web
-	@heroku git:remote -a akela-db
-	@heroku container:release web
-
 
 db-start: ## Start mongodb container
 	@sudo docker start akela_db
