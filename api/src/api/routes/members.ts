@@ -5,7 +5,7 @@ import AuthService from "../../services/auth";
 import MemberService from "../../services/member";
 import LoggerInstance from '../../loaders/logger';
 import UserService from "../../services/user";
-import member from "../../models/member";
+//import {MemberModel} from "../../models/member";
 
 const route = Router();
 
