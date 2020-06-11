@@ -52,10 +52,11 @@ jobs:
       run: make heroku.push.api
     - name: Install frontend
       run: npm install --prefix ./web
-    - name: Build and test frontend
+    - name: Build frontend
+      run: npm run build --prefix ./web
+    - name: Test frontend
       uses: cypress-io/github-action@v1
       with:
-        install: npm run build 
         start: npm start
         config-file: cypress.json
         working-directory: web
