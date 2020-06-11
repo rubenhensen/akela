@@ -55,8 +55,8 @@ jobs:
     - name: Build and test frontend
       uses: cypress-io/github-action@v1
       with:
-        install: npm run build --prefix ./web 
-        start: npm start --prefix ./web
+        install: npm run build 
+        start: npm start
         config-file: cypress.json
         working-directory: web
     - name: Build frontend container
