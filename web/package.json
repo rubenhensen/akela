@@ -32,6 +32,7 @@
     "@testing-library/jest-dom": "^5.9.0",
     "@testing-library/svelte": "^3.0.0",
     "babel-jest": "^26.0.1",
+    "cypress": "^4.8.0",
     "jest": "^26.0.1",
     "jest-transform-svelte": "^2.1.1",
     "node-sass": "^4.14.1",
