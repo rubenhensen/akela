@@ -39,10 +39,13 @@ De leiding moet kunnen zien welk programma ze die dag draaien.
 	
 
 ## Testing
-Alle componenten zijn getest met Jest. Helaas heeft Sapper hier uit zich zelf geen ondersteuning voor en daarom breekt het op sommige punten ook. Sapper maakt een eigen node_modules map aan die Jest niet herkent. Alles wat hier uit geimporteerd wordt breekt ook de testen daardoor. Zo werkt register.svelte.js bijvoorbeeld niet omdat dit component {goto} from '@sapper' importeert. 
+Alle componenten zijn getest met Jest. Deze manier van testen is meer zoals in de lessen zijn geleerd. Helaas heeft Sapper hier uit zich zelf geen ondersteuning voor en daarom breekt het op sommige punten ook. Sapper maakt een eigen node_modules map aan die Jest niet herkent. Alles wat hier uit geimporteerd wordt breekt ook de testen daardoor. Zo werkt register.svelte.js bijvoorbeeld niet omdat dit component {goto} from '@sapper' importeert. 
 
-Ik heb twee componenten gekozen die niet breken door dit probleem, deze heb ik uitgebreider getest.
 Meer info: https://github.com/sveltejs/sapper/issues/654
+
+Deze testen kunnen gedraaid worden met npm run unit-test, maar zullen dus niet allemaal slagen.
+
+Om deze reden heb ik voor alle testen cypress gebruikt. De testomgeving die bij sapper zit inbegrepen. Dit zijn de testen die gedraaid worden tijdens de CI.
 
 
 ## Sequence Diagrams
