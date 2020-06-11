@@ -93,7 +93,7 @@ db-start: ## Start mongodb container
 
 web-start: api-start ## Start frontend
 	@gnome-terminal -- sh -c "cd web; npm run dev; bash"
-	@gnome-terminal -- sh -c "cd web; npm run unit-test:watch; bash"
+#	@gnome-terminal -- sh -c "cd web; npm run unit-test:watch; bash"
 
 api-start: express-start ## Start api
 	@gnome-terminal -- sh -c "cd api; npm start; bash"
