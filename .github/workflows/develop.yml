@@ -57,7 +57,7 @@ jobs:
       with:
         install: npm run build --prefix ./web 
         start: npm start --prefix ./web
-        config-file: web/cypress.json
+        config-file: cypress.json
         working-directory: web
     - name: Build frontend container
       run: docker build web/ -t akela_web:latest
