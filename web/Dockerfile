@@ -17,4 +17,4 @@ COPY . ./
 RUN npm run build
 
 # start app
-CMD ["node", "__sapper/build"]
+CMD ["node", "__sapper__/build"]
