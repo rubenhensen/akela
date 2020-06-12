@@ -94,23 +94,14 @@
     }
 </script>
 
-<!--<p>Name: {name}</p>-->
-<!--<p>Role: {role}</p>-->
-<!--<p>_id: {_id}</p>-->
-
-
-
-
 <div class="center">
     <h2>Edit member</h2>
     <form on:submit|preventDefault={handleSubmit}>
         <div>
-            <Textfield  type="text" variant="outlined" withLeadingIcon bind:value={name} label="Name"
+            <Textfield id="memberName"  type="text" variant="outlined" withLeadingIcon bind:value={name} label="Name"
                        input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b">
                 <Icon class="material-icons">person</Icon>
             </Textfield>
-            <!--        <HelperText id="helper-text-outlined-b">Helper Text</HelperText>-->
-            <!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
         </div>
         <div>
             <Select input$required variant="outlined" bind:value={role} label="Group">

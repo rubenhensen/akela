@@ -5,7 +5,6 @@
     import {goto} from '@sapper/app';
     import Checkbox from '@smui/checkbox';
     import FormField from '@smui/form-field';
-    import LoremIpsum from './LoremIpsum.svelte';
     import {loggedIn, appBarTitle} from '../stores';
 
     let prominent = false;

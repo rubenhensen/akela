@@ -12,10 +12,11 @@ describe('Attendance page', () => {
 		cy.url().should('include', '/');
 	});
 
-	it('has the correct <h3> headers', () => {
-		cy.contains('h3', 'Aangemeld');
-		cy.contains('h3', 'Aanwezig');
-		cy.contains('h3', 'Afgemeld');
+	it('has all the links available', () => {
+		cy.contains('Attendance');
+		cy.contains('Cancellation');
+		cy.contains('Members');
+		cy.contains('Program');
 	});
 });
 	

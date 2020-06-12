@@ -1,21 +1,19 @@
-describe('Attendance page', () => {
+describe('Members page', () => {
 	beforeEach(() => {
 		cy.visit('/signin')
 		cy.wait(600);
 		cy.get('#email').type('karel@gmail.com');
 		cy.get('#password').type('karel');
 		cy.get('#submit').click();
-		cy.get('#attendancelink').click();	
+		cy.get('#memberslink').click();	
 	});
 
-	it('can navigate to the attendance page', () => {
-		cy.url().should('include', '/');
+	it('can navigate to the members page', () => {
+		cy.url().should('include', '/members');
 	});
 
-	it('has the correct <h3> headers', () => {
-		cy.contains('h3', 'Aangemeld');
-		cy.contains('h3', 'Aanwezig');
-		cy.contains('h3', 'Afgemeld');
+	it('has an add member button', () => {
+		cy.contains('button', 'Add member');
 	});
 });
 	

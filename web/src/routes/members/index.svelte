@@ -100,7 +100,7 @@
 {/if}
 
 <div style="text-align: center">
-    <Button on:click={addMember}>Add member</Button>
+    <Button id="addMemberButton" on:click={addMember}>Add member</Button>
 </div>
 
 

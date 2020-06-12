@@ -41,7 +41,7 @@
     <h2>Create new member</h2>
     <form on:submit|preventDefault={handleSubmit}>
         <div>
-            <Textfield  input$required type="text" variant="outlined" withLeadingIcon bind:value={name} label="Name"
+            <Textfield id="memberName" input$required type="text" variant="outlined" withLeadingIcon bind:value={name} label="Name"
                        input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b">
                 <Icon class="material-icons">person</Icon>
             </Textfield>
