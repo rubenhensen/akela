@@ -54,7 +54,7 @@ export default (app: Router) => {
                 const {user, token} = await authServiceInstance.SignIn(email, password);
                 return res.cookie('access_token', `Bearer ${token}`, {
                     expires: new Date(Date.now() + 8 * 3600000), // cookie will be removed after 8 hours
-                    sameSite: true,
+                    sameSite: 'none',
 		    secure: true,
 		    httpOnly: true,
                 })
