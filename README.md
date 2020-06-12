@@ -61,3 +61,6 @@ Ik heb gekozen voor MongoDB door het documenten model dat er voor zorgt dat ik m
 
 ## Database diagrammen
 ![akela database diagram](akeladbdiagram.png)
+
+## Code standaard
+Er is geen officiele code standaard voor svelte maar alles is geformateerd naar een code standaard die is gemaakt voor svelte.
