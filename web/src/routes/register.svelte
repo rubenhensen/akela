@@ -27,14 +27,14 @@
         return response.json(); // parses JSON response into native JavaScript objects
     }
 
-    function handleSubmit() {
+    async function handleSubmit() {
         let url = API_URL + '/api/auth/signup';
         let data = {
             "name": name,
             "email": email,
             "password": password
         };
-        postData(url, data);
+        postData(url, data).then(await goto('/signin'));
     }
 </script>
 
@@ -49,7 +49,7 @@
     <h2>Register</h2>
     <form on:submit|preventDefault={handleSubmit}>
         <div>
-            <Textfield variant="outlined" withLeadingIcon bind:value={name} label="Name"
+            <Textfield input$required type="text" variant="outlined" withLeadingIcon bind:value={name} label="Name"
                        input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b">
                 <Icon class="material-icons">person</Icon>
             </Textfield>
@@ -57,7 +57,7 @@
             <!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
         </div>
         <div>
-            <Textfield variant="outlined" withLeadingIcon bind:value={email} label="E-mail"
+            <Textfield input$required type="email" variant="outlined" withLeadingIcon bind:value={email} label="E-mail"
                        input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b">
                 <Icon class="material-icons">email</Icon>
             </Textfield>
@@ -65,7 +65,7 @@
             <!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
         </div>
         <div>
-            <Textfield variant="outlined" withLeadingIcon bind:value={password} label="Password"
+            <Textfield input$required variant="outlined" withLeadingIcon bind:value={password} label="Password"
                        input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b"
                        type="password">
                 <Icon class="material-icons">lock</Icon>

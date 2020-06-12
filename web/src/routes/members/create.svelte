@@ -3,6 +3,7 @@
     import Icon from '@smui/textfield/icon/index';
     import Button, {Label} from '@smui/button';
     import Select, {Option} from '@smui/select';
+    import {goto} from '@sapper/app';
 
     let name = '';
     let roles = ["Leiding", "Roverscout", "Explorer", "Scout", "Welp J.", "Welp M.", "Bever"];
@@ -26,13 +27,13 @@
         return response.json(); // parses JSON response into native JavaScript objects
     }
 
-    function handleSubmit() {
+    async function handleSubmit() {
         let url = API_URL + '/api/members';
         let data = {
             "name": name,
             "role": valueOutlined,
         };
-        postData(url, data);
+        postData(url, data).then(await goto('/members'));
     }
 </script>
 
@@ -40,7 +41,7 @@
     <h2>Create new member</h2>
     <form on:submit|preventDefault={handleSubmit}>
         <div>
-            <Textfield variant="outlined" withLeadingIcon bind:value={name} label="Name"
+            <Textfield  input$required type="text" variant="outlined" withLeadingIcon bind:value={name} label="Name"
                        input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b">
                 <Icon class="material-icons">person</Icon>
             </Textfield>
@@ -48,7 +49,7 @@
             <!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
         </div>
         <div>
-            <Select variant="outlined" bind:value={valueOutlined} label="Group">
+            <Select  input$required variant="outlined" bind:value={valueOutlined} label="Group">
                 <Option value=""></Option>
                 {#each roles as role}
                     <Option value={role} selected={valueOutlined === role}>{role}</Option>

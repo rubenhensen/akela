@@ -34,6 +34,7 @@
     import Icon from '@smui/textfield/icon/index';
     import Button, {Label} from '@smui/button';
     import Select, {Option} from '@smui/select';
+    import {goto} from '@sapper/app'
 
 
     let roles = ["Leiding", "Roverscout", "Explorer", "Scout", "Welp J.", "Welp M.", "Bever"];
@@ -82,12 +83,14 @@
             role,
             _id
         }
-        postData(url, data);
+        postData(url, data).then(
+		goto('/members'));
     }
 
-    function handleDelete() {
+    async function handleDelete() {
         let url = API_URL + `/api/members/${_id}`;
-        deleteData(url);
+	    deleteData(url).then(
+		    await goto('/members'));
     }
 </script>
 
@@ -102,7 +105,7 @@
     <h2>Edit member</h2>
     <form on:submit|preventDefault={handleSubmit}>
         <div>
-            <Textfield variant="outlined" withLeadingIcon bind:value={name} label="Name"
+            <Textfield  type="text" variant="outlined" withLeadingIcon bind:value={name} label="Name"
                        input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b">
                 <Icon class="material-icons">person</Icon>
             </Textfield>
@@ -110,7 +113,7 @@
             <!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
         </div>
         <div>
-            <Select variant="outlined" bind:value={role} label="Group">
+            <Select input$required variant="outlined" bind:value={role} label="Group">
 <!--                <Option value=""></Option>-->
                 {#each roles as roleOption}
                     <Option value={roleOption} selected={role === roleOption}>{roleOption}</Option>

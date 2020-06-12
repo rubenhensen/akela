@@ -74,7 +74,7 @@
     <h2>Sign in</h2>
     <form on:submit|preventDefault={handleSubmit}>
         <div>
-            <Textfield variant="outlined" withLeadingIcon bind:value={email} label="E-mail"
+            <Textfield input$required variant="outlined" withLeadingIcon bind:value={email} label="E-mail" type="email"
                        input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b">
                 <Icon class="material-icons">email</Icon>
             </Textfield>
@@ -82,7 +82,7 @@
             <!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
         </div>
         <div>
-            <Textfield variant="outlined" withLeadingIcon bind:value={password} label="Password"
+            <Textfield input$required variant="outlined" withLeadingIcon bind:value={password} label="Password"
                        input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b"
                        type="password">
                 <Icon class="material-icons">lock</Icon>
