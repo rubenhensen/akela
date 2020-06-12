@@ -39,7 +39,7 @@ jobs:
     - name: Test backend
       run: npm test --prefix ./api
     - name: Build backend container
-      run: docker build api/ -t akela_api:latest  
+      run: docker build --build-arg JWT_SECRET --build-arg MONGODB_URI --build-arg PORT --build-arg DB_PASSWORD --build-arg DB_USERNAME --build-arg LOG_LEVEL --build-arg MAILGUN_API_KEY --build-arg MAILGUN_DOMAIN --build-arg API_URL --build-arg FRONTEND_URL api/ -t akela_api:latest 
       #    - name: Build containers
       #      run: make build
     - name: Login to Heroku Container registry
