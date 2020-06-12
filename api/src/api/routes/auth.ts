@@ -52,9 +52,12 @@ export default (app: Router) => {
                 const {email, password} = req.body;
                 const authServiceInstance = Container.get(AuthService);
                 const {user, token} = await authServiceInstance.SignIn(email, password);
+		const isProduction = process.env.NODE_ENV !== "development";
+		console.log(isProduction);
+		console.log(process.env.NODE_ENV);
                 return res.cookie('access_token', `Bearer ${token}`, {
                     expires: new Date(Date.now() + 8 * 3600000), // cookie will be removed after 8 hours
-		    secure: true,
+		    secure: false,
 		    httpOnly: true,
                 })
                     .status(200)

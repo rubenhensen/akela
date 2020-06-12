@@ -6,6 +6,7 @@ describe('Attendance page', () => {
 		cy.get('#password').type('karel');
 		cy.get('#submit').click();
 		cy.get('#attendancelink').click();	
+		cy.wait(2000);
 	});
 
 	it('has the correct <h3>', () => {
