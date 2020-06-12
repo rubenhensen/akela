@@ -55,6 +55,8 @@ export default (app: Router) => {
                 return res.cookie('access_token', `Bearer ${token}`, {
                     expires: new Date(Date.now() + 8 * 3600000), // cookie will be removed after 8 hours
                     sameSite: true,
+		    secure: true,
+		    httpOnly: true,
                 })
                     .status(200)
                     .json({user, token});
