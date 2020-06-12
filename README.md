@@ -47,8 +47,17 @@ Deze testen kunnen gedraaid worden met npm run unit-test, maar zullen dus niet a
 
 Om deze reden heb ik voor alle testen cypress gebruikt. De testomgeving die bij sapper zit inbegrepen. Dit zijn de testen die gedraaid worden tijdens de CI.
 
+Er zijn een paar elementen beter getest, voornamelijk /signin en alle pagina's van /members. 
+- signin_spec.js (test signin.svelte)
+- members.crud_spec.js (test members/index.svelte, members/create.svelte, members/edit/[slug].svelte)
 
 ## Sequence Diagrams
 Sapper heeft iets wat een Angular of React applicatie standaard niet heeft en dat is server side rendering (SSR) en een service worker. De sequence diagrammen hieronder zijn gemaakt alsof de browser de url laad zonder ooit eerder op de pagina te zijn geweest. Zo kunnen we de SSR en de service worker in ieder geval zien zonder dat het te ingewikkeld wordt.
-![put members sequence diagram](putmembers.png)
 ![get members sequence diagram](getmembers.png)
+![put members sequence diagram](putmembers.png)
+
+## Waarom MongoDB
+Ik heb gekozen voor MongoDB door het documenten model dat er voor zorgt dat ik mijn data zo kan opslaan als het ook in de applicatie gebruikt wordt. Mijn database architectuur blijft zo heel simpel (er zijn maar 3 type documenten) en zorgt ervoor dat ik snel en gemakkelijk code kan schrijven zonder eerst een hele database structuur te bouwen.
+
+## Database diagrammen
+![akela database diagram](akeladbdiagram.png)
