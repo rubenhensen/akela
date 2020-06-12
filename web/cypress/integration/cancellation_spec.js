@@ -5,7 +5,7 @@ describe('Cancellation page', () => {
 		cy.get('#email').type('karel@gmail.com');
 		cy.get('#password').type('karel');
 		cy.get('#submit').click();
-		cy.get('#cancellationlink').click();	
+		cy.get('#cancellationlink').click();
 	});
 
 	it('can navigate to the cancellation page', () => {
@@ -17,4 +17,4 @@ describe('Cancellation page', () => {
 		cy.contains('h3', 'Afgemeld');
 	});
 });
-	
+

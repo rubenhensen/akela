@@ -5,7 +5,7 @@ describe('Members page', () => {
 		cy.get('#email').type('karel@gmail.com');
 		cy.get('#password').type('karel');
 		cy.get('#submit').click();
-		cy.get('#memberslink').click();	
+		cy.get('#memberslink').click();
 	});
 
 	it('can navigate to the members page', () => {
@@ -16,4 +16,4 @@ describe('Members page', () => {
 		cy.contains('button', 'Add member');
 	});
 });
-	
+

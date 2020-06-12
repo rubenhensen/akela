@@ -5,7 +5,7 @@ describe('Profile page', () => {
 		cy.get('#email').type('karel@gmail.com');
 		cy.get('#password').type('karel');
 		cy.get('#submit').click();
-		cy.contains('account_box').click();	
+		cy.contains('account_box').click();
 	});
 
 	it('can navigate to the attendance page', () => {
@@ -16,4 +16,4 @@ describe('Profile page', () => {
 		cy.contains('Naam');
 	});
 });
-	
+

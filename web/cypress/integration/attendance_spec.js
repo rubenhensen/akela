@@ -5,7 +5,7 @@ describe('Attendance page', () => {
 		cy.get('#email').type('karel@gmail.com');
 		cy.get('#password').type('karel');
 		cy.get('#submit').click();
-		cy.get('#attendancelink').click();	
+		cy.get('#attendancelink').click();
 	});
 
 	it('can navigate to the attendance page', () => {
@@ -18,4 +18,4 @@ describe('Attendance page', () => {
 		cy.contains('h3', 'Afgemeld');
 	});
 });
-	
+

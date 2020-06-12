@@ -9,7 +9,7 @@ import Comp from '../src/routes/members/edit/[slug].svelte'
 test('shows proper heading when rendered', () => {
   const { getByText } = render(Comp, {})
 
-	expect(true).toBe(true);
+  expect(true).toBe(true);
 })
 
 // Note: This is as an async test as we are using `fireEvent`
