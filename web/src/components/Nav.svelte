@@ -91,32 +91,32 @@
     <div class="adjust"></div>
     <nav>
         <ul>
-            <li>
-                <a aria-current='{segment === undefined ? "page" : undefined}' href='.' id="attendancelink">
+            <li id="attendancelink">
+                <a aria-current='{segment === undefined ? "page" : undefined}' href='.'>
                     <div class="flex-container">
                         <i class="material-icons">check_box</i>
                         <span>Attendance</span>
                     </div>
                 </a>
             </li>
-            <li>
-                <a aria-current='{segment === "cancellation" ? "page" : undefined}' href='cancellation' id="cancellationlink">
+            <li id="cancellationlink">
+                <a aria-current='{segment === "cancellation" ? "page" : undefined}' href='cancellation'>
                     <div class="flex-container">
                         <i class="material-icons">cancel</i>
                         <span>Cancellation</span>
                     </div>
                 </a>
             </li>
-            <li>
-                <a aria-current='{segment === "members" ? "page" : undefined}' href='members' id="memberslink">
+            <li id="memberslink">
+                <a aria-current='{segment === "members" ? "page" : undefined}' href='members'>
                     <div class="flex-container">
                         <i class="material-icons">people</i>
                         <span>Members</span>
                     </div>
                 </a>
             </li>
-            <li>
-                <a aria-current='{segment === "program" ? "page" : undefined}' href='program' id="programlink">
+            <li id="programlink">
+                <a aria-current='{segment === "program" ? "page" : undefined}' href='program'>
                     <div class="flex-container">
                         <i class="material-icons">notes</i>
                         <span>Program</span>
