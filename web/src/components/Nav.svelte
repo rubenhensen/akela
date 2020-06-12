@@ -92,7 +92,7 @@
     <nav>
         <ul>
             <li>
-                <a aria-current='{segment === undefined ? "page" : undefined}' href='.'>
+                <a aria-current='{segment === undefined ? "page" : undefined}' href='.' id="attendancelink">
                     <div class="flex-container">
                         <i class="material-icons">check_box</i>
                         <span>Attendance</span>
@@ -100,7 +100,7 @@
                 </a>
             </li>
             <li>
-                <a aria-current='{segment === "cancellation" ? "page" : undefined}' href='cancellation'>
+                <a aria-current='{segment === "cancellation" ? "page" : undefined}' href='cancellation' id="cancellationlink">
                     <div class="flex-container">
                         <i class="material-icons">cancel</i>
                         <span>Cancellation</span>
@@ -108,7 +108,7 @@
                 </a>
             </li>
             <li>
-                <a aria-current='{segment === "members" ? "page" : undefined}' href='members'>
+                <a aria-current='{segment === "members" ? "page" : undefined}' href='members' id="memberslink">
                     <div class="flex-container">
                         <i class="material-icons">people</i>
                         <span>Members</span>
@@ -116,7 +116,7 @@
                 </a>
             </li>
             <li>
-                <a aria-current='{segment === "program" ? "page" : undefined}' href='program'>
+                <a aria-current='{segment === "program" ? "page" : undefined}' href='program' id="programlink">
                     <div class="flex-container">
                         <i class="material-icons">notes</i>
                         <span>Program</span>

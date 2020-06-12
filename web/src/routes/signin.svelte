@@ -74,7 +74,7 @@
     <h2>Sign in</h2>
     <form on:submit|preventDefault={handleSubmit}>
         <div>
-            <Textfield input$required variant="outlined" withLeadingIcon bind:value={email} label="E-mail" type="email"
+            <Textfield id="email" input$required variant="outlined" withLeadingIcon bind:value={email} label="E-mail" type="email"
                        input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b">
                 <Icon class="material-icons">email</Icon>
             </Textfield>
@@ -82,7 +82,7 @@
             <!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
         </div>
         <div>
-            <Textfield input$required variant="outlined" withLeadingIcon bind:value={password} label="Password"
+            <Textfield id="password" input$required variant="outlined" withLeadingIcon bind:value={password} label="Password"
                        input$aria-controls="helper-text-outlined-b" input$aria-describedby="helper-text-outlined-b"
                        type="password">
                 <Icon class="material-icons">lock</Icon>
@@ -91,7 +91,7 @@
             <!--        <pre class="status">Value: {valueOutlinedB}</pre>-->
         </div>
         <div>
-            <Button type="submit" variant="raised"><Label>Log in</Label></Button>
+            <Button type="submit" id="submit" variant="raised"><Label>Log in</Label></Button>
             <span>- or -</span>
             <Button type="button" on:click={() => goto('/register')} ripple={false}><Label>Register</Label></Button>
         </div>
