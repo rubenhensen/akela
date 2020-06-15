@@ -7,14 +7,14 @@ start: ## Create and start development containers
 
 init: ## Setup dev environment
 	@echo "Initializing dev environment"
-	@docker network create --driver bridge akela-net 
-	@docker build ./db/ -t rubenhensen/db:latest
-	@docker create --network akela-net --publish 27017:27017 --name akela_db \
+	@sudo docker network create --driver bridge akela-net 
+	@sudo docker build ./db/ -t rubenhensen/db:latest
+	@sudo docker create --network akela-net --publish 27017:27017 --name akela_db \
     -e MONGO_INITDB_ROOT_USERNAME=mongoadmin \
     -e MONGO_INITDB_ROOT_PASSWORD=secret \
     rubenhensen/db:latest
-	@cd web; npm install
-	@cd api; npm install
+	@npm install --prefix api/
+	@npm install --prefix web/
 #	@cp .env.sample .env
 
 stop: ## Stop development containers
