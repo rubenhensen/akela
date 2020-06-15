@@ -1,7 +1,6 @@
 import { Container } from "typedi";
 import mailgun from "mailgun-js";
 import LoggerInstance from "./logger";
-import agendaFactory from "./agenda";
 import config from "../config";
 
 export default ({
@@ -16,9 +15,6 @@ export default ({
       Container.set(m.name, m.model);
     });
 
-    const agendaInstance = agendaFactory({ mongoConnection });
-
-    Container.set("agendaInstance", agendaInstance);
     Container.set("logger", LoggerInstance);
     Container.set(
       "emailClient",
@@ -27,7 +23,7 @@ export default ({
 
     LoggerInstance.info("✌️ Agenda injected into container");
 
-    return { agenda: agendaInstance };
+    return {};
   } catch (e) {
     LoggerInstance.error("🔥 Error on dependency injector loader: %o", e);
     throw e;

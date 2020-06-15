@@ -17,4 +17,23 @@ export default class UserService {
       throw e;
     }
   }
+
+  public async UpdateUser(
+    id: string,
+    name: string,
+    email: string
+  ): Promise<{}> {
+    try {
+      this.logger.silly(`Searching user with id: ${id}`);
+      const user = await this.userModel.findOneAndUpdate(
+        { _id: id },
+        { name, email }
+      );
+      this.logger.silly(`User updated ${user}`);
+      return user;
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
 }

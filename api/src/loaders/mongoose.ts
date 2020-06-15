@@ -8,6 +8,7 @@ const connectionOptions = {
   useCreateIndex: true,
   user: process.env.DB_USERNAME,
   pass: process.env.DB_PASSWORD,
+  useFindAndModify: false
 };
 
 export default async (): Promise<Db> => {

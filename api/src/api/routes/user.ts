@@ -19,7 +19,7 @@ export default (app: Router) => {
   );
 
   route.get(
-    "/all",
+    "",
     middlewares.isAuth,
     middlewares.attachCurrentUser,
     async (req: Request, res: Response) => {
@@ -27,6 +27,20 @@ export default (app: Router) => {
       const allUsers = await userServiceInstance.GetAllUsers();
 
       res.json(allUsers).status(200);
+    }
+  );
+
+  route.put(
+    "/:id",
+    middlewares.isAuth,
+    middlewares.attachCurrentUser,
+    async (req: Request, res: Response) => {
+      const { id } = req.params;
+      const { name, email } = req.body;
+      const userServiceInstance = Container.get(UserService);
+      const newUser = await userServiceInstance.UpdateUser(id, name, email);
+
+      res.json(newUser).status(200);
     }
   );
 };

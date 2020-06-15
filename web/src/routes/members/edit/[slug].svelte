@@ -117,6 +117,7 @@
   <form on:submit|preventDefault={handleSubmit}>
     <div>
       <Textfield
+        input$required
         id="memberName"
         type="text"
         variant="outlined"
