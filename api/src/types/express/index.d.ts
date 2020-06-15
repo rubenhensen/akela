@@ -1,14 +1,18 @@
-import { Document, Model } from 'mongoose';
-import { IUser } from '../../interfaces/IUser';
+import { Document, Model } from "mongoose";
+import { User } from "../../interfaces/User";
+import { Member } from "../../interfaces/Member";
+import { MemberPresence } from "../../interfaces/MemberPresence";
 
 declare global {
   namespace Express {
     export interface Request {
-      currentUser: IUser & Document;
+      currentUser: User & Document;
     }
   }
 
   namespace Models {
-    export type UserModel = Model<IUser & Document>;
+    export type UserModel = Model<User & Document>;
+    export type MemberModel = Model<Member & Document>;
+    export type PresenceModel = Model<MemberPresence & Document>;
   }
 }

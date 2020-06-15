@@ -18,35 +18,50 @@ jobs:
     runs-on: ubuntu-latest
     # Set staging configuration
     env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      PORT: 8000
-      PG_DB: ${{ secrets.PG_DB }}
-      PG_PASS: ${{ secrets.PG_PASS }}
-      PG_USER: ${{ secrets.USER }}
-
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      PORT: ${{ secrets.API_PORT}}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      LOG_LEVEL: ${{ secrets.LOG_LEVEL }}
+      MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
+      MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
+      API_URL: ${{ secrets.API_URL }}
+      FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
+      MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+      MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-
-    - name: Build the docker-compose stack
-      env:
-        MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
-        MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
-      run: make test.prod
+    - name: Install backend
+      run: npm install --prefix ./api
+    - name: Test backend
+      run: npm test --prefix ./api
+    - name: Build backend container
+      run: docker build --build-arg JWT_SECRET --build-arg MONGODB_URI --build-arg PORT --build-arg DB_PASSWORD --build-arg DB_USERNAME --build-arg LOG_LEVEL --build-arg MAILGUN_API_KEY --build-arg MAILGUN_DOMAIN --build-arg API_URL --build-arg FRONTEND_URL api/ -t akela_api:latest 
+      #    - name: Build containers
+      #      run: make build
     - name: Login to Heroku Container registry
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: heroku container:login
-    - name: Push and release db Heroku Container registry
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: make heroku.push.db
     - name: Push and release api Heroku Container registry
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: make heroku.push.api
+    - name: Install frontend
+      run: npm install --prefix ./web
+    - name: Build frontend
+      run: npm run build --prefix ./web
+    - name: Test frontend
+      uses: cypress-io/github-action@v1
+      with:
+        start: npm start
+        config-file: cypress.json
+        working-directory: web
+    - name: Build frontend container
+      run: docker build web/ -t akela_web:latest
     - name: Push and release web Heroku Container registry
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}

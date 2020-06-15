@@ -1,7 +1,7 @@
-import { Container } from 'typedi';
-import mongoose from 'mongoose';
-import { IUser } from '../../interfaces/IUser';
-
+import { Container } from "typedi";
+import mongoose from "mongoose";
+import { User } from "../../interfaces/User";
+import { Logger } from "winston";
 /**
  * Attach user to req.currentUser
  * @param {*} req Express req Object
@@ -9,21 +9,22 @@ import { IUser } from '../../interfaces/IUser';
  * @param {*} next  Express next Function
  */
 const attachCurrentUser = async (req, res, next) => {
-  const Logger = Container.get('logger');
+  const Logger = Container.get<Logger>("logger");
   try {
-    const UserModel = Container.get('userModel') as mongoose.Model<IUser & mongoose.Document>;
+    const UserModel = Container.get("userModel") as mongoose.Model<
+      User & mongoose.Document
+    >;
     const userRecord = await UserModel.findById(req.token._id);
     if (!userRecord) {
       return res.sendStatus(401);
     }
     const currentUser = userRecord.toObject();
-    Reflect.deleteProperty(currentUser, 'password');
-    Reflect.deleteProperty(currentUser, 'salt');
+    Reflect.deleteProperty(currentUser, "password");
+    Reflect.deleteProperty(currentUser, "salt");
     req.currentUser = currentUser;
     return next();
   } catch (e) {
-    // @ts-ignore
-    Logger.error('🔥 Error attaching user to req: %o', e);
+    Logger.error("🔥 Error attaching user to req: %o", e);
     return next(e);
   }
 };

@@ -1,14 +1,16 @@
-import expressLoader from './express';
-import dependencyInjectorLoader from './dependencyInjector';
-import mongooseLoader from './mongoose';
-import jobsLoader from './jobs';
-import Logger from './logger';
+import expressLoader from "./express";
+import dependencyInjectorLoader from "./dependencyInjector";
+import mongooseLoader from "./mongoose";
+import jobsLoader from "./jobs";
+import Logger from "./logger";
 // We have to import at least all the events once so they can be triggered
-import './events';
+import "./events";
+import { PresenceModel } from "../models/presence";
+import { MemberModel } from "../models/member";
 
 export default async ({ expressApp }) => {
   const mongoConnection = await mongooseLoader();
-  Logger.info('✌️ DB loaded and connected!');
+  Logger.info("✌️ DB loaded and connected!");
 
   /**
    * WTF is going on here?
@@ -19,25 +21,38 @@ export default async ({ expressApp }) => {
    */
 
   const userModel = {
-    name: 'userModel',
+    name: "userModel",
     // Notice the require syntax and the '.default'
-    model: require('../models/user').default,
+    model: require("../models/user").default,
+  };
+  const memberModel = {
+    name: "memberModel",
+    // Notice the require syntax and the '.default'
+    model: MemberModel,
+  };
+
+  const presenceModel = {
+    name: "presenceModel",
+    // Notice the require syntax and the '.default'
+    model: PresenceModel,
   };
 
   // It returns the agenda instance because it's needed in the subsequent loaders
-  const { agenda } = await dependencyInjectorLoader({
+  const dependecies = await dependencyInjectorLoader({
     mongoConnection,
     models: [
       userModel,
+      memberModel,
+      presenceModel,
       // salaryModel,
       // whateverModel
     ],
   });
-  Logger.info('✌️ Dependency Injector loaded');
+  Logger.info("✌️ Dependency Injector loaded");
 
-  await jobsLoader({ agenda });
-  Logger.info('✌️ Jobs loaded');
+  await jobsLoader();
+  Logger.info("✌️ Jobs loaded");
 
   await expressLoader({ app: expressApp });
-  Logger.info('✌️ Express loaded');
+  Logger.info("✌️ Express loaded");
 };

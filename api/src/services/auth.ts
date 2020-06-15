@@ -1,23 +1,28 @@
-import { Service, Inject } from 'typedi';
-import jwt from 'jsonwebtoken';
-import argon2 from 'argon2';
-import { randomBytes } from 'crypto';
-import MailerService from './mailer';
-import config from '../config';
-import { IUser, IUserInputDTO } from '../interfaces/IUser';
-import { EventDispatcher, EventDispatcherInterface } from '../decorators/eventDispatcher';
-import events from '../subscribers/events';
+import { Service, Inject } from "typedi";
+import jwt from "jsonwebtoken";
+import argon2 from "argon2";
+import { randomBytes } from "crypto";
+import MailerService from "./mailer";
+import config from "../config";
+import { User, UserInputDTO } from "../interfaces/User";
+import {
+  EventDispatcher,
+  EventDispatcherInterface,
+} from "../decorators/eventDispatcher";
+import events from "../subscribers/events";
 
 @Service()
 export default class AuthService {
   constructor(
-      @Inject('userModel') private userModel : Models.UserModel,
-      private mailer: MailerService,
-      @Inject('logger') private logger,
-      @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
+    @Inject("userModel") private userModel: Models.UserModel,
+    private mailer: MailerService,
+    @Inject("logger") private logger,
+    @EventDispatcher() private eventDispatcher: EventDispatcherInterface
   ) {}
 
-  public async SignUp(userInputDTO: IUserInputDTO): Promise<{ user: IUser; token: string }> {
+  public async SignUp(
+    userInputDTO: UserInputDTO
+  ): Promise<{ user: User; token: string }> {
     try {
       const salt = randomBytes(32);
 
@@ -37,21 +42,21 @@ export default class AuthService {
        * watches every API call and if it spots a 'password' and 'email' property then
        * it decides to steal them!? Would you even notice that? I wouldn't :/
        */
-      this.logger.silly('Hashing password');
+      this.logger.silly("Hashing password");
       const hashedPassword = await argon2.hash(userInputDTO.password, { salt });
-      this.logger.silly('Creating user db record');
+      this.logger.silly("Creating user db record");
       const userRecord = await this.userModel.create({
         ...userInputDTO,
-        salt: salt.toString('hex'),
+        salt: salt.toString("hex"),
         password: hashedPassword,
       });
-      this.logger.silly('Generating JWT');
+      this.logger.silly("Generating JWT");
       const token = this.generateToken(userRecord);
 
       if (!userRecord) {
-        throw new Error('User cannot be created');
+        throw new Error("User cannot be created");
       }
-      this.logger.silly('Sending welcome email');
+      this.logger.silly("Sending welcome email");
       await this.mailer.SendWelcomeEmail(userRecord.email);
 
       this.eventDispatcher.dispatch(events.user.signUp, { user: userRecord });
@@ -63,8 +68,8 @@ export default class AuthService {
        * but that's too over-engineering for now
        */
       const user = userRecord.toObject();
-      Reflect.deleteProperty(user, 'password');
-      Reflect.deleteProperty(user, 'salt');
+      Reflect.deleteProperty(user, "password");
+      Reflect.deleteProperty(user, "salt");
       return { user, token };
     } catch (e) {
       this.logger.error(e);
@@ -72,30 +77,33 @@ export default class AuthService {
     }
   }
 
-  public async SignIn(email: string, password: string): Promise<{ user: IUser; token: string }> {
+  public async SignIn(
+    email: string,
+    password: string
+  ): Promise<{ user: User; token: string }> {
     const userRecord = await this.userModel.findOne({ email });
     if (!userRecord) {
-      throw new Error('User not registered');
+      throw new Error("User not registered");
     }
     /**
      * We use verify from argon2 to prevent 'timing based' attacks
      */
-    this.logger.silly('Checking password');
+    this.logger.silly("Checking password");
     const validPassword = await argon2.verify(userRecord.password, password);
     if (validPassword) {
-      this.logger.silly('Password is valid!');
-      this.logger.silly('Generating JWT');
+      this.logger.silly("Password is valid!");
+      this.logger.silly("Generating JWT");
       const token = this.generateToken(userRecord);
 
       const user = userRecord.toObject();
-      Reflect.deleteProperty(user, 'password');
-      Reflect.deleteProperty(user, 'salt');
+      Reflect.deleteProperty(user, "password");
+      Reflect.deleteProperty(user, "salt");
       /**
        * Easy as pie, you don't need passport.js anymore :)
        */
       return { user, token };
     }
-    throw new Error('Invalid Password');
+    throw new Error("Invalid Password");
   }
 
   private generateToken(user) {
@@ -120,7 +128,7 @@ export default class AuthService {
         name: user.name,
         exp: exp.getTime() / 1000,
       },
-      config.jwtSecret,
+      config.jwtSecret
     );
   }
 }

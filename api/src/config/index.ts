@@ -1,16 +1,22 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
+import Logger from "../loaders/logger";
 
 // Set the NODE_ENV to 'development' by default
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
-const envFound = dotenv.config();
-if (!envFound) {
-  // This error should crash whole process
-
-  throw new Error("⚠️  Couldn't find .env file  ⚠️");
+// Error should fail silently so we can replace it with env variables in the CI pipeline
+const result = dotenv.config();
+if (result.error) {
+  console.log(".env file is missing");
+  console.log(`mongod_uri: ${process.env.MONGODB_URI}`);
 }
 
 export default {
+  /**
+   * Your frontend url for CORS
+   */
+  frontendUrl: process.env.FRONTEND_URL,
+
   /**
    * Your favorite port
    */
@@ -30,7 +36,7 @@ export default {
    * Used by winston logger
    */
   logs: {
-    level: process.env.LOG_LEVEL || 'silly',
+    level: process.env.LOG_LEVEL || "silly",
   },
 
   /**
@@ -46,14 +52,14 @@ export default {
    * Agendash config
    */
   agendash: {
-    user: 'agendash',
-    password: '123456',
+    user: "agendash",
+    password: "123456",
   },
   /**
    * API configs
    */
   api: {
-    prefix: '/api',
+    prefix: "/api",
   },
   /**
    * Mailgun email credentials

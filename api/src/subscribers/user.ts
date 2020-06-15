@@ -1,8 +1,9 @@
-import { Container } from 'typedi';
-import { EventSubscriber, On } from 'event-dispatch';
-import mongoose from 'mongoose';
-import events from './events';
-import { IUser } from '../interfaces/IUser';
+import { Container } from "typedi";
+import { EventSubscriber, On } from "event-dispatch";
+import mongoose from "mongoose";
+import events from "./events";
+import { User } from "../interfaces/User";
+import winston from "winston";
 
 @EventSubscriber()
 export default class UserSubscriber {
@@ -17,11 +18,13 @@ export default class UserSubscriber {
    * then save the latest in Redis/Memcache or something similar
    */
   @On(events.user.signIn)
-  public onUserSignIn({ _id }: Partial<IUser>) {
-    const Logger = Container.get('logger');
+  public onUserSignIn({ _id }: Partial<User>) {
+    const Logger = Container.get<winston.Logger>("logger");
 
     try {
-      const UserModel = Container.get('UserModel') as mongoose.Model<IUser & mongoose.Document>;
+      const UserModel = Container.get("UserModel") as mongoose.Model<
+        User & mongoose.Document
+      >;
 
       UserModel.update({ _id }, { $set: { lastLogin: new Date() } });
     } catch (e) {
@@ -33,8 +36,8 @@ export default class UserSubscriber {
   }
 
   @On(events.user.signUp)
-  public onUserSignUp({ name, email, _id }: Partial<IUser>) {
-    const Logger = Container.get('logger');
+  public onUserSignUp({ name, email, _id }: Partial<User>) {
+    const Logger = Container.get<winston.Logger>("logger");
 
     try {
       /**

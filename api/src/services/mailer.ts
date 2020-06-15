@@ -1,11 +1,9 @@
-import { Service, Inject } from 'typedi';
-import { IUser } from '../interfaces/IUser';
+import { Service, Inject } from "typedi";
+import { User } from "../interfaces/User";
 
 @Service()
 export default class MailerService {
-  constructor(
-    @Inject('emailClient') private emailClient,
-  ) { }
+  constructor(@Inject("emailClient") private emailClient) {}
 
   public async SendWelcomeEmail(email) {
     /**
@@ -13,22 +11,22 @@ export default class MailerService {
      */
     // Added example for sending mail from mailgun
     const data = {
-      from: 'Excited User <me@samples.mailgun.org>',
+      from: "Excited User <me@samples.mailgun.org>",
       to: email, // your email address
-      subject: 'Hello',
-      text: 'Testing some Mailgun awesomness!',
+      subject: "Hello",
+      text: "Testing some Mailgun awesomness!",
     };
     this.emailClient.messages().send(data, (error, body) => {
       // console.log(body);
       // console.log(email);
     });
     // this.emailClient.messages().send(data);
-    return { delivered: 1, status: 'ok' };
+    return { delivered: 1, status: "ok" };
   }
 
-  public StartEmailSequence(sequence: string, user: Partial<IUser>) {
+  public StartEmailSequence(sequence: string, user: Partial<User>) {
     if (!user.email) {
-      throw new Error('No email provided');
+      throw new Error("No email provided");
     }
     // @TODO Add example of an email sequence implementation
     // Something like
@@ -37,6 +35,6 @@ export default class MailerService {
     // 3 - Schedule job for second email in 1-3 days or whatever
     // Every sequence can have its own behavior so maybe
     // the pattern Chain of Responsibility can help here.
-    return { delivered: 1, status: 'ok' };
+    return { delivered: 1, status: "ok" };
   }
 }
