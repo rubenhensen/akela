@@ -7,6 +7,7 @@ Akela draait op de volgende technologieen:
 - Sapper (Svelte)
 - MongoDB
 - ExpressJS
+- Docker
 
 ## Project beschrijving
 Akela is een webapplicatie voor het bijhouden van presentie voor een scouting vereniging.
@@ -63,4 +64,4 @@ Ik heb gekozen voor MongoDB door het documenten model dat er voor zorgt dat ik m
 ![akela database diagram](akeladbdiagram.png)
 
 ## Code standaard
-Er is geen officiele code standaard voor svelte maar alles is geformateerd naar een code standaard die is gemaakt voor svelte.
+De enige code standaard die ik kon vinden van Svelte was een ESLint plugin die de code controleerd. Deze kan gedraaid worden met het commando `npm run lint`.
