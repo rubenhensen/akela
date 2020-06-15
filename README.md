@@ -2,6 +2,13 @@
 Ruben Hensen
 s2084700
 
+## Dev omgeving opstarten
+Wil je de code op eigen hardware draaien dan kan dat makkelijk als je een linux omgeving draait.
+- Installeer Docker Machine volgens te website van Docker zelf.
+- Kopieer het .env bestand naar api/.
+- In de root folder `make init` om alles te installeren.
+- Daarna `make start` om alles op te starten.
+
 ## Technische samenvatting
 Akela draait op de volgende technologieen:
 - Sapper (Svelte)
